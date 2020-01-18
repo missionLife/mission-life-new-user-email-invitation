@@ -1,0 +1,41 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: install
+  pull: if-not-exists
+  image: node:12
+  commands:
+  - npm install
+
+- name: build
+  pull: if-not-exists
+  image: node:12
+  commands:
+  - npm run build
+  when:
+    branch:
+    - master
+    event:
+    - push
+
+- name: deploy
+  pull: if-not-exists
+  image: meltwaterfoundation/drone-serverless:1.60.4
+  commands:
+  - npm run deploy
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: aws_access_key_id
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: aws_secret_access_key
+  when:
+    branch:
+    - master
+    event:
+    - push

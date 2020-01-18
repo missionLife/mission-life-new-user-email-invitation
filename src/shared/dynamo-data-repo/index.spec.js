@@ -1,0 +1,1 @@
+import DynamoDataRepo from './index';

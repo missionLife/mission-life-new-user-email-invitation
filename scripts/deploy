@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -e # Exit on any child process error
+
+export STACK_NAME=mission-life-new-user-email-invitation
+export AWS_DEFAULT_REGION=us-east-2
+
+echo "Current Building Environment is: $DRONE_BRANCH"
+
+#Find or Create S3 bucket
+echo "Setting up S3 bucket"
+(aws s3api get-bucket-location --bucket mission-life-new-user-email-invitation-bucket-$DRONE_BRANCH --region ${AWS_DEFAULT_REGION} || aws s3 mb s3://mission-life-new-user-email-invitation-bucket-$DRONE_BRANCH --region ${AWS_DEFAULT_REGION})
+
+# cloudformation.yaml package
+echo "Packaging artifacts"
+aws cloudformation package \
+ --template-file "./dist/cloudformation.yaml" \
+ --s3-bucket mission-life-new-user-email-invitation-bucket-$DRONE_BRANCH \
+ --output-template packaged-sam.yaml \
+ --region ${AWS_DEFAULT_REGION}
+
+# cloudformation.yaml deploy
+echo "Starting Main Deployment"
+
+scripts/cloudformation-safe-no-changes aws cloudformation deploy \
+ --template-file "packaged-sam.yaml" \
+ --stack-name ${STACK_NAME} \
+ --capabilities CAPABILITY_NAMED_IAM \
+ --region ${AWS_DEFAULT_REGION}
+
+# upload content to s3
+echo "Start uploading files"
+
+aws s3 cp ./dist/s3 s3://mission-life-new-user-email-invitation/ \
+    --acl public-read \
+    --recursive \
+    --cache-control no-cache || true

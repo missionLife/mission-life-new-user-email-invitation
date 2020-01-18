@@ -1,0 +1,27 @@
+{
+  "name": "mission-life-new-user-email-invitation",
+  "version": "1.0.0",
+  "description": "AWS powered pipeline for new user email invitation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/missionLife/mission-life-new-user-email-invitation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/missionLife/mission-life-new-user-email-invitation/issues"
+  },
+  "homepage": "https://github.com/missionLife/mission-life-new-user-email-invitation#readme",
+  "devDependencies": {
+    "@babel/cli": "7.8.3",
+    "@babel/core": "7.8.3",
+    "@babel/preset-env": "7.8.3",
+    "jasmine": "3.5.0",
+    "mustache": "4.0.0"
+  }
+}
