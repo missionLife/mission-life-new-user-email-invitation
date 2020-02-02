@@ -4,7 +4,13 @@
   "description": "AWS powered pipeline for new user email invitation",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "scripts/build",
+    "clean": "rm -rf coverage/ dist/",
+    "deploy": "scripts/deploy",
+    "postinstall": "if [ -z \"$npm_config_production\" ]; then npm outdated; exit 0; fi",
+    "postversion": "git push --follow-tags",
+    "test": "npm run transpile && JASMINE_CONFIG_PATH=jasmine.json jasmine",
+    "transpile": "npm run clean && babel src --out-dir dist/cjs --copy-files"
   },
   "repository": {
     "type": "git",

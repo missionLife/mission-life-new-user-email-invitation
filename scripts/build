@@ -1,26 +1,37 @@
 #!/usr/bin/env bash	
-	set -e # Exit on any child process error
-	
-	source ./scripts/setup_env
-	
-	mkdir -p dist
-	
-	echo "Transpile ES6 to CJS"
-	npm i
-	npm run transpile -- --ignore spec.js
-	
-	echo "Preparing infrastructure code for AWS account"
-	echo "{\"AWS_ACCOUNT_ID\":\"${AWS_ACCOUNT_ID}\",\"MASF_API_KEY\":\"${MASF_API_KEY}\"}" | node_modules/mustache/bin/mustache - ./infrastructure/config/$DRONE_BRANCH.json > ./dist/infrastructure-config.json
-	cat ./dist/infrastructure-config.json | node_modules/mustache/bin/mustache - ./infrastructure/cloudformation.yaml > ./dist/cloudformation.yaml
-	cat ./dist/infrastructure-config.json | node_modules/mustache/bin/mustache - ./infrastructure/swagger.yaml > ./dist/swagger.yaml
-	
-	echo "Preparing production dependencies"
-	rm -rf ./node_modules
-	npm install --production
-	pushd ./dist/cjs
-	ln -s ../../node_modules/
-	popd
-	
-	echo "Packaging code"
-	pushd dist/cjs
-	zip -q -r ../reach-bff.zip .
+set -e # Exit on any child process error
+
+source ./scripts/setup_env
+
+npm run clean
+
+mkdir -p dist
+
+echo "Transpile ES6 to CJS"
+npm install
+npm run transpile -- --ignore spec.js
+
+echo "Processing infrastructure template for $DRONE_BRANCH"
+# echo "{\"SEARCH_ALERT_AWS_ACCESS_KEY_ID\":\"${SEARCH_ALERT_AWS_ACCESS_KEY_ID}\",
+# \"SEARCH_ALERT_AWS_SECRET_ACCESS_KEY\":\"${SEARCH_ALERT_AWS_SECRET_ACCESS_KEY}\",
+# \"SEARCH_SERVICE_API_KEY\":\"${SEARCH_SERVICE_API_KEY}\"}" | mustache - ./infrastructure/constants/$DRONE_BRANCH.json > ./dist/constants.json
+cat ./infrastructure/constants/$DRONE_BRANCH.json > ./dist/constants.json
+# cat ./dist/constants.json | mustache - ./dist/cloudformation-merged.yaml > ./dist/cloudformation.yaml
+# cat ./dist/constants.json | mustache - ./infrastructure/coverage-checker-subscription-api-swagger.yaml > ./dist/coverage-checker-subscription-api-swagger.yaml
+
+echo "Production NPM Install"
+rm -rf ./node_modules
+npm install --production
+
+for i in ./dist/cjs/* ; do
+	if [ -d "$i" ]; then
+		CURRENT_FOLDER=$(basename "$i")
+		echo "Preparing $CURRENT_FOLDER"
+		pushd ./dist/cjs/$CURRENT_FOLDER
+		ln -s ../../../node_modules/
+		popd
+		pushd dist/cjs/$CURRENT_FOLDER
+		zip -q -r ../../$CURRENT_FOLDER.zip .
+		popd
+	fi
+done

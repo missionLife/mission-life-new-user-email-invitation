@@ -88,6 +88,7 @@ Resources:
       Environment:
         Variables:
           COVERAGE_CHECKER_SUBSCRIPTION_TABLE: !Ref CoverageCheckerSubscriptionsTable
+          TEST_ENV: {{{TEST_ENV}}}
 
 # New User Scheduler Cloudwatch & Alarm Resources	
 
