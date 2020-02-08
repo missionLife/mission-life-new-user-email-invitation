@@ -5,7 +5,7 @@ Description: Mission Life New User Email Invitation
 Resources:
 
 # Lambda Resources
-  MissionLifeNewUserSchedulerLambda:
+  MissionLifeNewUsersSchedulerLambda:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ../dist/mission-life-new-users-scheduler.zip
@@ -20,7 +20,7 @@ Resources:
         Variables:
           TEST_ENV: {{{TEST_ENV}}}
 
-  MissionLifeNewUserSchedulerLambdaExecutionRole:
+  MissionLifeNewUsersSchedulerLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -43,15 +43,15 @@ Resources:
             - logs:PutLogEvents
             Resource: arn:aws:logs:*:*:*
 
-  MissionLifeNewUserSchedulerLambdaLogGroup:
-    DependsOn: MissionLifeNewUserSchedulerLambda
+  MissionLifeNewUsersSchedulerLambdaLogGroup:
+    DependsOn: MissionLifeNewUsersSchedulerLambda
     Type: AWS::Logs::LogGroup
     Properties:
       RetentionInDays: 14
       LogGroupName: !Join
         - ''
         - - 'aws/lambda/'
-          - !Ref MissionLifeNewUserSchedulerLambda
+          - !Ref MissionLifeNewUsersSchedulerLambda
 
 # - PolicyName: dynamodb
 #   PolicyDocument:
@@ -94,17 +94,17 @@ Resources:
 #           ProjectionType: "ALL"
 #     BillingMode: "PAY_PER_REQUEST"
 # New User Scheduler Cloudwatch & Alarm Resources	
-# MissionLifeNewUserSchedulerRule:
+# MissionLifeNewUsersSchedulerRule:
 #   Type: AWS::Events::Rule
 #   Properties:
 #     ScheduleExpression: "cron(00 13 * * ? *)"
 #     Targets:
-#     - Id: MissionLifeNewUserSchedulerRuleTarget
-#     Arn: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
-# MissionLifeNewUserSchedulerInvokePermission:
+#     - Id: MissionLifeNewUsersSchedulerRuleTarget
+#     Arn: !GetAtt MissionLifeNewUsersSchedulerLambda.Arn
+# MissionLifeNewUsersSchedulerInvokePermission:
 #   Type: AWS::Lambda::Permission
 #   Properties:
-#     FunctionName: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
+#     FunctionName: !GetAtt MissionLifeNewUsersSchedulerLambda.Arn
 #     Action: "lambda:InvokeFunction"
 #     Principal: "events.amazonaws.com"
-#     SourceArn: !GetAtt MissionLifeNewUserSchedulerRule.Arn
+#     SourceArn: !GetAtt MissionLifeNewUsersSchedulerRule.Arn
