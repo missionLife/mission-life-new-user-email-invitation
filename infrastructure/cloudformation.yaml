@@ -49,7 +49,7 @@ Resources:
       RetentionInDays: 14
       LogGroupName: !Join
         - ''
-        - - 'aws/lambda/'
+        - - 'lambda/'
           - !Ref MissionLifeNewUsersSchedulerLambda
 
 # - PolicyName: dynamodb
