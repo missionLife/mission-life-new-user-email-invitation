@@ -5,7 +5,7 @@ Description: Mission Life New User Email Invitation
 Resources:
 
 # Lambda Resources
-  MissionLifeNewUserSchedulerLambda:	
+  MissionLifeNewUserSchedulerLambda:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ../dist/mission-life-new-users-scheduler.zip
@@ -19,89 +19,92 @@ Resources:
       Environment:
         Variables:
           TEST_ENV: {{{TEST_ENV}}}
+
+	MissionLifeNewUserSchedulerLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: '/'
+      Policies:
+      - PolicyName: logs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+
+  MissionLifeNewUserSchedulerLambdaLogGroup:
+    DependsOn: MissionLifeNewUserSchedulerLambda
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 14
+      LogGroupName: !Join
+        - ''
+        - - 'aws/lambda/'
+          - !Ref MissionLifeNewUserSchedulerLambda
+
+# - PolicyName: dynamodb
+#   PolicyDocument:
+#     Statement:
+#     - Effect: Allow
+#       Action:
+#       - dynamodb:GetItem
+#       - dynamodb:GetRecords
+#       - dynamodb:BatchGetItem
+#       - dynamodb:DescribeTable
+#       - dynamodb:Query
+#       - dynamodb:Scan
+#       - dynamodb:PutItem
+#       Resource:
+#       - !GetAtt CoverageReportsTable.Arn
 # New User Scheduler Dynamo Resources
-	# WebAppUsersTable:
-  #   Type: AWS::DynamoDB::Table
-  #   Properties:
-  #     TableName: "WEB_APP_USERS"
-  #     AttributeDefinitions:
-  #       -
-  #         AttributeName: "SEARCH_ID"
-  #         AttributeType: "S"
-  #       -
-  #         AttributeName: "END_DATE"
-  #         AttributeType: "S"
-  #     KeySchema:
-  #       -
-  #         AttributeName: "SEARCH_ID"
-  #         KeyType: "HASH"
-  #     GlobalSecondaryIndexes:
-  #       -
-  #         IndexName: "END_DATE_GSI"
-  #         KeySchema:
-  #           -
-  #           AttributeName: "END_DATE"
-  #           KeyType: "HASH"
-  #         Projection:
-  #           ProjectionType: "ALL"
-  #     BillingMode: "PAY_PER_REQUEST"
-
-# New User Scheduler Lambda Resources	
-	# MissionLifeNewUserSchedulerLambdaExecutionRole:
-  #   DependsOn:
-  #   - CoverageCheckerSubscriptionsTable
-  #   Type: AWS::IAM::Role
-  #   Properties:
-  #     AssumeRolePolicyDocument:
-  #       Version: '2012-10-17'
-  #       Statement:
-  #         Effect: Allow
-  #         Principal:
-  #           Service: lambda.amazonaws.com
-  #         Action: sts:AssumeRole
-  #     Path: '/'
-  #     Policies:
-  #     - PolicyName: logs
-  #       PolicyDocument:
-  #         Version: '2012-10-17'
-  #         Statement:
-  #         - Effect: Allow
-  #           Action:
-  #           - logs:CreateLogGroup
-  #           - logs:CreateLogStream
-  #           - logs:PutLogEvents
-  #           Resource: arn:aws:logs:*:*:*
-  #     - PolicyName: dynamodb
-  #       PolicyDocument:
-  #         Statement:
-  #         - Effect: Allow
-  #           Action:
-  #           - dynamodb:GetItem
-  #           - dynamodb:GetRecords
-  #           - dynamodb:BatchGetItem
-  #           - dynamodb:DescribeTable
-  #           - dynamodb:Query
-  #           - dynamodb:Scan
-  #           - dynamodb:PutItem
-  #           Resource:
-  #           - !GetAtt CoverageReportsTable.Arn
-
+# WebAppUsersTable:
+#   Type: AWS::DynamoDB::Table
+#   Properties:
+#     TableName: "WEB_APP_USERS"
+#     AttributeDefinitions:
+#       -
+#         AttributeName: "SEARCH_ID"
+#         AttributeType: "S"
+#       -
+#         AttributeName: "END_DATE"
+#         AttributeType: "S"
+#     KeySchema:
+#       -
+#         AttributeName: "SEARCH_ID"
+#         KeyType: "HASH"
+#     GlobalSecondaryIndexes:
+#       -
+#         IndexName: "END_DATE_GSI"
+#         KeySchema:
+#           -
+#           AttributeName: "END_DATE"
+#           KeyType: "HASH"
+#         Projection:
+#           ProjectionType: "ALL"
+#     BillingMode: "PAY_PER_REQUEST"
 # New User Scheduler Cloudwatch & Alarm Resources	
-
-	# MissionLifeNewUserSchedulerRule:
-  #   Type: AWS::Events::Rule
-  #   Properties:
-  #     ScheduleExpression: "cron(00 13 * * ? *)"
-  #     Targets:
-  #     - Id: MissionLifeNewUserSchedulerRuleTarget
-  #     Arn: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
-    
-  # MissionLifeNewUserSchedulerInvokePermission:
-  #   Type: AWS::Lambda::Permission
-  #   Properties:
-  #     FunctionName: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
-  #     Action: "lambda:InvokeFunction"
-  #     Principal: "events.amazonaws.com"
-  #     SourceArn: !GetAtt MissionLifeNewUserSchedulerRule.Arn
-
- 
+# MissionLifeNewUserSchedulerRule:
+#   Type: AWS::Events::Rule
+#   Properties:
+#     ScheduleExpression: "cron(00 13 * * ? *)"
+#     Targets:
+#     - Id: MissionLifeNewUserSchedulerRuleTarget
+#     Arn: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
+# MissionLifeNewUserSchedulerInvokePermission:
+#   Type: AWS::Lambda::Permission
+#   Properties:
+#     FunctionName: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
+#     Action: "lambda:InvokeFunction"
+#     Principal: "events.amazonaws.com"
+#     SourceArn: !GetAtt MissionLifeNewUserSchedulerRule.Arn
