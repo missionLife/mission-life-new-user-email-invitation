@@ -6,71 +6,71 @@ Resources:
 
 # New User Scheduler Dynamo Resources
 
-	WebAppUsersTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: "WEB_APP_USERS"
-      AttributeDefinitions:
-        -
-          AttributeName: "SEARCH_ID"
-          AttributeType: "S"
-        -
-          AttributeName: "END_DATE"
-          AttributeType: "S"
-      KeySchema:
-        -
-          AttributeName: "SEARCH_ID"
-          KeyType: "HASH"
-      GlobalSecondaryIndexes:
-        -
-          IndexName: "END_DATE_GSI"
-          KeySchema:
-            -
-            AttributeName: "END_DATE"
-            KeyType: "HASH"
-          Projection:
-            ProjectionType: "ALL"
-      BillingMode: "PAY_PER_REQUEST"
+	# WebAppUsersTable:
+  #   Type: AWS::DynamoDB::Table
+  #   Properties:
+  #     TableName: "WEB_APP_USERS"
+  #     AttributeDefinitions:
+  #       -
+  #         AttributeName: "SEARCH_ID"
+  #         AttributeType: "S"
+  #       -
+  #         AttributeName: "END_DATE"
+  #         AttributeType: "S"
+  #     KeySchema:
+  #       -
+  #         AttributeName: "SEARCH_ID"
+  #         KeyType: "HASH"
+  #     GlobalSecondaryIndexes:
+  #       -
+  #         IndexName: "END_DATE_GSI"
+  #         KeySchema:
+  #           -
+  #           AttributeName: "END_DATE"
+  #           KeyType: "HASH"
+  #         Projection:
+  #           ProjectionType: "ALL"
+  #     BillingMode: "PAY_PER_REQUEST"
 
 # New User Scheduler Lambda Resources	
-	MissionLifeNewUserSchedulerLambdaExecutionRole:
-    DependsOn:
-    - CoverageCheckerSubscriptionsTable
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          Effect: Allow
-          Principal:
-            Service: lambda.amazonaws.com
-          Action: sts:AssumeRole
-      Path: '/'
-      Policies:
-      - PolicyName: logs
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-          - Effect: Allow
-            Action:
-            - logs:CreateLogGroup
-            - logs:CreateLogStream
-            - logs:PutLogEvents
-            Resource: arn:aws:logs:*:*:*
-      - PolicyName: dynamodb
-        PolicyDocument:
-          Statement:
-          - Effect: Allow
-            Action:
-            - dynamodb:GetItem
-            - dynamodb:GetRecords
-            - dynamodb:BatchGetItem
-            - dynamodb:DescribeTable
-            - dynamodb:Query
-            - dynamodb:Scan
-            - dynamodb:PutItem
-            Resource:
-            - !GetAtt CoverageReportsTable.Arn
+	# MissionLifeNewUserSchedulerLambdaExecutionRole:
+  #   DependsOn:
+  #   - CoverageCheckerSubscriptionsTable
+  #   Type: AWS::IAM::Role
+  #   Properties:
+  #     AssumeRolePolicyDocument:
+  #       Version: '2012-10-17'
+  #       Statement:
+  #         Effect: Allow
+  #         Principal:
+  #           Service: lambda.amazonaws.com
+  #         Action: sts:AssumeRole
+  #     Path: '/'
+  #     Policies:
+  #     - PolicyName: logs
+  #       PolicyDocument:
+  #         Version: '2012-10-17'
+  #         Statement:
+  #         - Effect: Allow
+  #           Action:
+  #           - logs:CreateLogGroup
+  #           - logs:CreateLogStream
+  #           - logs:PutLogEvents
+  #           Resource: arn:aws:logs:*:*:*
+  #     - PolicyName: dynamodb
+  #       PolicyDocument:
+  #         Statement:
+  #         - Effect: Allow
+  #           Action:
+  #           - dynamodb:GetItem
+  #           - dynamodb:GetRecords
+  #           - dynamodb:BatchGetItem
+  #           - dynamodb:DescribeTable
+  #           - dynamodb:Query
+  #           - dynamodb:Scan
+  #           - dynamodb:PutItem
+  #           Resource:
+  #           - !GetAtt CoverageReportsTable.Arn
 
 # Lambda Resources
 
@@ -87,25 +87,24 @@ Resources:
       Tracing: Active
       Environment:
         Variables:
-          COVERAGE_CHECKER_SUBSCRIPTION_TABLE: !Ref CoverageCheckerSubscriptionsTable
           TEST_ENV: {{{TEST_ENV}}}
 
 # New User Scheduler Cloudwatch & Alarm Resources	
 
-	MissionLifeNewUserSchedulerRule:
-    Type: AWS::Events::Rule
-    Properties:
-      ScheduleExpression: "cron(00 13 * * ? *)"
-      Targets:
-      - Id: MissionLifeNewUserSchedulerRuleTarget
-      Arn: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
+	# MissionLifeNewUserSchedulerRule:
+  #   Type: AWS::Events::Rule
+  #   Properties:
+  #     ScheduleExpression: "cron(00 13 * * ? *)"
+  #     Targets:
+  #     - Id: MissionLifeNewUserSchedulerRuleTarget
+  #     Arn: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
     
-  MissionLifeNewUserSchedulerInvokePermission:
-    Type: AWS::Lambda::Permission
-    Properties:
-      FunctionName: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
-      Action: "lambda:InvokeFunction"
-      Principal: "events.amazonaws.com"
-      SourceArn: !GetAtt MissionLifeNewUserSchedulerRule.Arn
+  # MissionLifeNewUserSchedulerInvokePermission:
+  #   Type: AWS::Lambda::Permission
+  #   Properties:
+  #     FunctionName: !GetAtt MissionLifeNewUserSchedulerLambda.Arn
+  #     Action: "lambda:InvokeFunction"
+  #     Principal: "events.amazonaws.com"
+  #     SourceArn: !GetAtt MissionLifeNewUserSchedulerRule.Arn
 
  

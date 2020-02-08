@@ -16,7 +16,7 @@ echo "Processing infrastructure template for $DRONE_BRANCH"
 # \"SEARCH_ALERT_AWS_SECRET_ACCESS_KEY\":\"${SEARCH_ALERT_AWS_SECRET_ACCESS_KEY}\",
 # \"SEARCH_SERVICE_API_KEY\":\"${SEARCH_SERVICE_API_KEY}\"}" | mustache - ./infrastructure/constants/$DRONE_BRANCH.json > ./dist/constants.json
 cat ./infrastructure/constants/$DRONE_BRANCH.json > ./dist/constants.json
-# cat ./dist/constants.json | mustache - ./dist/cloudformation-merged.yaml > ./dist/cloudformation.yaml
+cat ./dist/constants.json | mustache - ./infrastructure/cloudformation.yaml > ./dist/cloudformation.yaml
 # cat ./dist/constants.json | mustache - ./infrastructure/coverage-checker-subscription-api-swagger.yaml > ./dist/coverage-checker-subscription-api-swagger.yaml
 
 echo "Production NPM Install"

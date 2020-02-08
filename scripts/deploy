@@ -28,9 +28,9 @@ scripts/cloudformation-safe-no-changes aws cloudformation deploy \
  --region ${AWS_DEFAULT_REGION}
 
 # upload content to s3
-echo "Start uploading files"
+# echo "Start uploading files"
 
-aws s3 cp ./dist/s3 s3://mission-life-new-user-email-invitation/ \
-    --acl public-read \
-    --recursive \
-    --cache-control no-cache || true
+# aws s3 cp ./dist/s3 s3://mission-life-new-user-email-invitation/ \
+#     --acl public-read \
+#     --recursive \
+#     --cache-control no-cache || true
