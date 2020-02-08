@@ -20,7 +20,7 @@ Resources:
         Variables:
           TEST_ENV: {{{TEST_ENV}}}
 
-	MissionLifeNewUserSchedulerLambdaExecutionRole:
+  MissionLifeNewUserSchedulerLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
