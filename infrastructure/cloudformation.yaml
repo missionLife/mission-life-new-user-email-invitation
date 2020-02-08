@@ -15,7 +15,6 @@ Resources:
       Role: !GetAtt MissionLifeNewUsersSchedulerLambdaExecutionRole.Arn
       Runtime: nodejs12.x
       Timeout: 30
-      Tracing: Active
       Environment:
         Variables:
           TEST_ENV: {{{TEST_ENV}}}
