@@ -32,7 +32,6 @@ export default class ReachService {
       `${process.env.REACH_BASE_URL}/sponsorships?page=${pageNumber}&per_page=200`,
       HTTP_OPTIONS
     );
-
     
     const allSponsorShips = sponsorships.concat(fetchedSponsorships);
 
