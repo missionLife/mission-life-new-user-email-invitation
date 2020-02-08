@@ -13,8 +13,8 @@ async function getUsers(event, context) {
 
     console.log('####### THE SUPPORTER ######## - ', supporters);
 
-    for (let supporter of supporters) {
-      supporterSponsorships.push(`${supporter.email}___${sponsorship.id}`);
+    for (let supporterData of supporters) {
+      supporterSponsorships.push(`${supporterData.supporter.email}___${sponsorship.id}`);
     }
   }
 
