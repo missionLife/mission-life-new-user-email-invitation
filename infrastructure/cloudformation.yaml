@@ -17,7 +17,8 @@ Resources:
       Timeout: 30
       Environment:
         Variables:
-          TEST_ENV: {{{TEST_ENV}}}
+          REACH_BASE_URL: {{{REACH_BASE_URL}}}
+          REACH_AUTHORIZATION_TOKEN: {{{REACH_AUTHORIZATION_TOKEN}}}
 
   MissionLifeNewUsersSchedulerLambdaExecutionRole:
     Type: AWS::IAM::Role

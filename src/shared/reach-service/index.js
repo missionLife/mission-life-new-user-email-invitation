@@ -1,39 +1,46 @@
+import fetchWrapper from '../fetch-wrapper';
 
-const REACH_URL = 'https://missionlife.reachapp.co/api/v1';
 const HTTP_OPTIONS = {
   headers: {
-    Authorization: 'Basic NDBiNjg5ODk0ZTRhZGNjOGFjNzcxMjk4MzRlYzMzY2Q6OWYwNGVhZGUxMzc5NjgwZGM0YmVjOTJlMjMyMTVmOWQ0NDNiZWU0Z' +
-      'WVkMDljOTRkYzg0MjQwZGZkM2UzZTM5MA=='
+    Authorization: process.env.REACH_AUTHORIZATION_TOKEN
   }
 };
 
-
-export class ReachService {
+export default class ReachService {
   constructor() { }
 
-  getAllSponsorships() {
-    const sponsorships = [];
-    const result = [];
+  async getSupporters(sponsorship) {
 
-    this.getSponsorships(1, sponsorships, () => {
-      result.next(sponsorships);
-    });
+    if (!sponsorship || !Array.isArray(sponsorship)) {
+      throw new TypeError(`Reach Service Error - getSupporters: sponsorship must be an array.  Value Provided: ${sponsorship}`);
+    }
 
-    return result;
+    return fetchWrapper(`${process.env.REACH_BASE_URL}/sponsorships/${sponsorship.id}/sponsors`, HTTP_OPTIONS);
   }
 
-  getSupporters(sponsorship) {
-    return this.http.get(`${REACH_URL}/sponsorships/${sponsorship.id}/sponsors`, HTTP_OPTIONS);
-  }
+  async getAllSponsorships(pageNumber, sponsorships) {
+    
+    if (typeof pageNumber !== 'number') {
+      throw new TypeError(`Reach Service Error - getAllSponsorships: pageNumber must be a number.  Value Provided: ${pageNumber}`);
+    }
 
-  getSponsorships(pageNumber, sponsorships, callback) {
-    return this.http.get(`${REACH_URL}/sponsorships?page=${pageNumber}&per_page=200`, HTTP_OPTIONS).then(results => {
-      if (results.length > 0) {
-        sponsorships.push(...results);
-        this.getSponsorships(pageNumber + 1, sponsorships, callback);
-      } else {
-        callback();
-      }
-    });
+    if (!sponsorships || !Array.isArray(sponsorships)) {
+      throw new TypeError(`Reach Service Error - getAllSponsorships: sponsorships must be an array.  Value Provided: ${sponsorships}`);
+    }
+
+    const fetchedSponsorships = await fetchWrapper(
+      `${process.env.REACH_BASE_URL}/sponsorships?page=${pageNumber}&per_page=200`,
+      HTTP_OPTIONS
+    );
+
+    
+    const allSponsorShips = sponsorships.concat(fetchedSponsorships);
+
+    if (fetchedSponsorships.length > 0) {
+      return this.getAllSponsorships(pageNumber + 1, allSponsorShips);
+    } else {
+      return allSponsorShips;
+    }
   }
+  
 }
