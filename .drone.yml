@@ -15,7 +15,7 @@ steps:
 
 - name: build
   pull: if-not-exists
-  image: node:12
+  image: meltwaterfoundation/drone-serverless:1.60.4
   commands:
   - npm run build
   when:
