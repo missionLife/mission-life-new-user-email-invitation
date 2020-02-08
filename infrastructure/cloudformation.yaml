@@ -4,8 +4,22 @@ Transform: AWS::Serverless-2016-10-31
 Description: Mission Life New User Email Invitation
 Resources:
 
+# Lambda Resources
+  MissionLifeNewUserSchedulerLambda:	
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../dist/mission-life-new-users-scheduler.zip
+      FunctionName: missionLifeNewUsersScheduler
+      Handler: index.handler
+      MemorySize: 256
+      Role: !GetAtt MissionLifeNewUsersSchedulerLambdaExecutionRole.Arn
+      Runtime: nodejs12.x
+      Timeout: 30
+      Tracing: Active
+      Environment:
+        Variables:
+          TEST_ENV: {{{TEST_ENV}}}
 # New User Scheduler Dynamo Resources
-
 	# WebAppUsersTable:
   #   Type: AWS::DynamoDB::Table
   #   Properties:
@@ -71,23 +85,6 @@ Resources:
   #           - dynamodb:PutItem
   #           Resource:
   #           - !GetAtt CoverageReportsTable.Arn
-
-# Lambda Resources
-
-  MissionLifeNewUserSchedulerLambda:	
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ../dist/new-user-scheduler.zip
-      FunctionName: missionLifeNewUserScheduler
-      Handler: index.handler
-      MemorySize: 256
-      Role: !GetAtt MissionLifeNewUserSchedulerLambdaExecutionRole.Arn
-      Runtime: nodejs12.x
-      Timeout: 30
-      Tracing: Active
-      Environment:
-        Variables:
-          TEST_ENV: {{{TEST_ENV}}}
 
 # New User Scheduler Cloudwatch & Alarm Resources	
 
