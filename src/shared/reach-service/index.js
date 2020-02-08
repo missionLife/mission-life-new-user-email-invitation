@@ -11,8 +11,8 @@ export default class ReachService {
 
   async getSupporters(sponsorship) {
 
-    if (!sponsorship || !Array.isArray(sponsorship)) {
-      throw new TypeError(`Reach Service Error - getSupporters: sponsorship must be an array.  Value Provided: ${sponsorship}`);
+    if (!sponsorship || typeof sponsorship !== 'object') {
+      throw new TypeError(`Reach Service Error - getSupporters: sponsorship must be an object.  Value Provided: ${sponsorship}`);
     }
 
     return fetchWrapper(`${process.env.REACH_BASE_URL}/sponsorships/${sponsorship.id}/sponsors`, HTTP_OPTIONS);

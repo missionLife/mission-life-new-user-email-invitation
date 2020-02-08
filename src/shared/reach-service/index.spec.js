@@ -18,7 +18,7 @@ describe('Reach Service', () => {
 
         await reachService.getSupporters(123);
       } catch (error) {
-        expect(error.message).toContain('array');
+        expect(error.message).toContain('object');
       }
     });
   });
