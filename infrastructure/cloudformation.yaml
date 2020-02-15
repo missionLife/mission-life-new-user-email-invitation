@@ -14,7 +14,7 @@ Resources:
       MemorySize: 256
       Role: !GetAtt MissionLifeNewUsersSchedulerLambdaExecutionRole.Arn
       Runtime: nodejs12.x
-      Timeout: 30
+      Timeout: 300
       Environment:
         Variables:
           REACH_BASE_URL: {{{REACH_BASE_URL}}}

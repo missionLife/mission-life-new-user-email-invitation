@@ -1,4 +1,16 @@
+import AWS from 'aws-sdk';
+import SupporterSponsorship from './shared/models/supporter-sponsorship';
+import MissionLifeNewUsersPublisher from './mission-life-new-users-publisher';
 import ReachService from './shared/reach-service';
+import SQS from './shared/sqs';
+
+AWS.config.setPromisesDependency(Promise);
+AWS.config.update({ region: process.env.AWS_REGION });
+
+const missionLifeNewUsersQueue = new SQS({
+  awsRegion: process.env.AWS_REGION,
+  queueUrl: process.env.MISSION_LIFE_NEW_USERS_QUEUE_URL
+})
 
 async function getUsers(event, context) {
   const supporterSponsorships = [];
@@ -14,13 +26,23 @@ async function getUsers(event, context) {
     console.log('####### THE SUPPORTER ######## - ', supporters);
 
     for (let supporterData of supporters) {
-      supporterSponsorships.push(`${supporterData.supporter.email}___${sponsorship.id}`);
+      supporterSponsorships.push(
+        new SupporterSponsorship(
+          supporterData.supporter.email,
+          sponsorship.id
+        )
+      );
     }
   }
 
   console.log('####### THE SUPPORTER_SPONSORSHIP KEY PAIRS ######## - ', supporterSponsorships);
 
-  return supporterSponsorships;
+  const missionLifeNewUsersPublisher = new MissionLifeNewUsersPublisher({
+    sqs: missionLifeNewUsersQueue,
+    batchSize: 10
+  })
+
+  return missionLifeNewUsersPublisher.publishSupporterSponsorships(supporterSponsorships);
 };
 
 exports.handler = async (event, context) => {

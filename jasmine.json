@@ -1,6 +1,7 @@
 {
   "spec_dir": "./dist/cjs",
   "spec_files": [
-    "shared/**/*.spec.js"
+    "shared/**/*.spec.js",
+    "mission-life-new-users-scheduler/mission-life-new-users-publisher/**/*.spec.js"
   ]
 }
