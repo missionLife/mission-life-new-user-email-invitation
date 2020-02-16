@@ -1,4 +1,5 @@
 {
+  "MISSION_LIFE_NEW_USERS_QUEUE_URL": "https://sqs.us-east-2.amazonaws.com/010242410260/MissionLifeNewUsers",
   "REACH_BASE_URL": "https://missionlife.reachapp.co/api/v1",
   "REACH_AUTHORIZATION_TOKEN": "Basic NDBiNjg5ODk0ZTRhZGNjOGFjNzcxMjk4MzRlYzMzY2Q6OWYwNGVhZGUxMzc5NjgwZGM0YmVjOTJlMjMyMTVmOWQ0NDNiZWU0ZWVkMDljOTRkYzg0MjQwZGZkM2UzZTM5MA=="
 }

@@ -4,6 +4,29 @@ Transform: AWS::Serverless-2016-10-31
 Description: Mission Life New User Email Invitation
 Resources:
 
+# SQS Resources 
+  MissionLifeNewUsersDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      DelaySeconds: 0
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 172800
+      QueueName: MissionLifeNewUsersDeadLetter
+      ReceiveMessageWaitTimeSeconds: 0
+      VisibilityTimeout: 300
+  MissionLifeNewUsersQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      DelaySeconds: 0
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 172800
+      QueueName: MissionLifeNewUsers
+      ReceiveMessageWaitTimeSeconds: 0
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt MissionLifeNewUsersQueue.Arn
+        maxReceiveCount: 3
+      VisibilityTimeout: 300
+
 # Lambda Resources
   MissionLifeNewUsersSchedulerLambda:
     Type: AWS::Serverless::Function
@@ -19,6 +42,7 @@ Resources:
         Variables:
           REACH_BASE_URL: {{{REACH_BASE_URL}}}
           REACH_AUTHORIZATION_TOKEN: {{{REACH_AUTHORIZATION_TOKEN}}}
+          MISSION_LIFE_NEW_USERS_QUEUE_URL: {{{MISSION_LIFE_NEW_USERS_QUEUE_URL}}}
 
   MissionLifeNewUsersSchedulerLambdaExecutionRole:
     Type: AWS::IAM::Role
@@ -42,6 +66,16 @@ Resources:
             - logs:CreateLogStream
             - logs:PutLogEvents
             Resource: arn:aws:logs:*:*:*
+      - PolicyName: sqs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - sqs:*
+            Resource: 
+              - !GetAtt MissionLifeNewUsersQueue.Arn
+              - !GetAtt MissionLifeNewUsersDeadLetterQueue.Arn
 
   MissionLifeNewUsersSchedulerLambdaLogGroup:
     DependsOn: MissionLifeNewUsersSchedulerLambda
