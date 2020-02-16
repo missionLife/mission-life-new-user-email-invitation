@@ -16,7 +16,7 @@ Resources:
       VisibilityTimeout: 300
   MissionLifeNewUsersQueue:
     DependsOn:
-      - MissionLifeNewUsersDeadLetter
+      - MissionLifeNewUsersDeadLetterQueue
     Type: AWS::SQS::Queue
     Properties:
       DelaySeconds: 0
