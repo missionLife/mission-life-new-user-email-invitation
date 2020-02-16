@@ -37,12 +37,12 @@ export default class MissionLifeNewUsersPublisher {
 
       if (formattedMessages.length === this.batchSize) {
         batchPromises.push(this.sqs.sendMessageBatch(formattedMessages));
+        formattedMessages = [];
       }
     }
 
     if (formattedMessages.length > 0) {
       batchPromises.push(this.sqs.sendMessageBatch(formattedMessages));
-      formattedMessages = [];
     }
 
     return Promise.all(batchPromises);
