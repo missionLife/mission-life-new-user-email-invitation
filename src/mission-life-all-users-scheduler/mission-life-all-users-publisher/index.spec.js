@@ -1,9 +1,9 @@
-import MissionLifeNewUsersPublisher from './index';
+import MissionLifeAllUsersPublisher from './index';
 import SupporterSponsorship from '../shared/models/supporter-sponsorship';
 
-describe('MissionLifeNewUsersPublisher', () => {
+describe('MissionLifeAllUsersPublisher', () => {
   it('should exist', () => {
-    expect(MissionLifeNewUsersPublisher).toEqual(jasmine.any(Function));
+    expect(MissionLifeAllUsersPublisher).toEqual(jasmine.any(Function));
   });
 
   let options;
@@ -24,12 +24,12 @@ describe('MissionLifeNewUsersPublisher', () => {
   describe('constructor', () => {
     it('should throw if batchSize is not a number', () => {
       options.batchSize = '10'
-      expect(() => new MissionLifeNewUsersPublisher(options)).toThrowError(/batchSize/);
+      expect(() => new MissionLifeAllUsersPublisher(options)).toThrowError(/batchSize/);
     });
 
     it('should throw if sqs is not an object', () => {
       options.sqs = '10'
-      expect(() => new MissionLifeNewUsersPublisher(options)).toThrowError(/sqs/);
+      expect(() => new MissionLifeAllUsersPublisher(options)).toThrowError(/sqs/);
     });
   });
 
@@ -46,9 +46,9 @@ describe('MissionLifeNewUsersPublisher', () => {
     ];
 
     it('should publish supporter sponsorships to SQS', async () => {
-      const missionLifeNewUsersPublisher = new MissionLifeNewUsersPublisher(options);
+      const missionLifeAllUsersPublisher = new MissionLifeAllUsersPublisher(options);
 
-      await missionLifeNewUsersPublisher.publishSupporterSponsorships(supporterSponsorships);
+      await missionLifeAllUsersPublisher.publishSupporterSponsorships(supporterSponsorships);
 
       expect(sqsSpy.sendMessageBatch).toHaveBeenCalledTimes(1);
     });

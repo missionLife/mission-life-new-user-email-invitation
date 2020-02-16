@@ -1,22 +1,22 @@
 import AWS from 'aws-sdk';
 
-export default class MissionLifeNewUsersPublisher {
+export default class MissionLifeAllUsersPublisher {
   constructor(options) {
     
     if (!options) {
       throw new TypeError(
-        `MissionLifeNewUsersPublisher - options must be an object. Value Provided: ${options}`
+        `MissionLifeAllUsersPublisher - options must be an object. Value Provided: ${options}`
       );
     }
     if (options.batchSize && typeof options.batchSize !== 'number') {
       throw new TypeError(
-        `MissionLifeNewUsersPublisher - options.batchSize must be a number. Value Provided: ${options.batchSize}`
+        `MissionLifeAllUsersPublisher - options.batchSize must be a number. Value Provided: ${options.batchSize}`
       );
     }
 
     if (!options.sqs || typeof options.sqs !== 'object') {
       throw new TypeError(
-        `MissionLifeNewUsersPublisher - options.sqs must be an object. Value Provided: ${options.sqs}`
+        `MissionLifeAllUsersPublisher - options.sqs must be an object. Value Provided: ${options.sqs}`
       );
     }
 

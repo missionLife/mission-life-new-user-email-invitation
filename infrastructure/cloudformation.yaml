@@ -5,50 +5,50 @@ Description: Mission Life New User Email Invitation
 Resources:
 
 # SQS Resources 
-  MissionLifeNewUsersDeadLetterQueue:
+  MissionLifeAllUsersDeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:
       DelaySeconds: 0
       MaximumMessageSize: 262144
       MessageRetentionPeriod: 172800
-      QueueName: MissionLifeNewUsersDeadLetter
+      QueueName: MissionLifeAllUsersDeadLetter
       ReceiveMessageWaitTimeSeconds: 0
       VisibilityTimeout: 300
-  MissionLifeNewUsersQueue:
+  MissionLifeAllUsersQueue:
     DependsOn:
-      - MissionLifeNewUsersDeadLetterQueue
+      - MissionLifeAllUsersDeadLetterQueue
     Type: AWS::SQS::Queue
     Properties:
       DelaySeconds: 0
       MaximumMessageSize: 262144
       MessageRetentionPeriod: 172800
-      QueueName: MissionLifeNewUsers
+      QueueName: MissionLifeAllUsers
       ReceiveMessageWaitTimeSeconds: 0
       RedrivePolicy:
-        deadLetterTargetArn: !GetAtt MissionLifeNewUsersDeadLetterQueue.Arn
+        deadLetterTargetArn: !GetAtt MissionLifeAllUsersDeadLetterQueue.Arn
         maxReceiveCount: 3
       VisibilityTimeout: 300
 
 # Lambda Resources
-  MissionLifeNewUsersSchedulerLambda:
+  MissionLifeAllUsersSchedulerLambda:
     DependsOn:
-      - MissionLifeNewUsersSchedulerLambdaExecutionRole
+      - MissionLifeAllUsersSchedulerLambdaExecutionRole
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ../dist/mission-life-new-users-scheduler.zip
-      FunctionName: missionLifeNewUsersScheduler
+      CodeUri: ../dist/mission-life-all-users-scheduler.zip
+      FunctionName: missionLifeAllUsersScheduler
       Handler: index.handler
       MemorySize: 256
-      Role: !GetAtt MissionLifeNewUsersSchedulerLambdaExecutionRole.Arn
+      Role: !GetAtt MissionLifeAllUsersSchedulerLambdaExecutionRole.Arn
       Runtime: nodejs12.x
       Timeout: 300
       Environment:
         Variables:
           REACH_BASE_URL: {{{REACH_BASE_URL}}}
           REACH_AUTHORIZATION_TOKEN: {{{REACH_AUTHORIZATION_TOKEN}}}
-          MISSION_LIFE_NEW_USERS_QUEUE_URL: {{{MISSION_LIFE_NEW_USERS_QUEUE_URL}}}
+          MISSION_LIFE_ALL_USERS_QUEUE_URL: {{{MISSION_LIFE_ALL_USERS_QUEUE_URL}}}
 
-  MissionLifeNewUsersSchedulerLambdaExecutionRole:
+  MissionLifeAllUsersSchedulerLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -78,18 +78,18 @@ Resources:
             Action:
             - sqs:*
             Resource: 
-              - !GetAtt MissionLifeNewUsersQueue.Arn
-              - !GetAtt MissionLifeNewUsersDeadLetterQueue.Arn
+              - !GetAtt MissionLifeAllUsersQueue.Arn
+              - !GetAtt MissionLifeAllUsersDeadLetterQueue.Arn
 
-  MissionLifeNewUsersSchedulerLambdaLogGroup:
-    DependsOn: MissionLifeNewUsersSchedulerLambda
+  MissionLifeAllUsersSchedulerLambdaLogGroup:
+    DependsOn: MissionLifeAllUsersSchedulerLambda
     Type: AWS::Logs::LogGroup
     Properties:
       RetentionInDays: 14
       LogGroupName: !Join
         - ''
         - - 'lambda/'
-          - !Ref MissionLifeNewUsersSchedulerLambda
+          - !Ref MissionLifeAllUsersSchedulerLambda
 
 # - PolicyName: dynamodb
 #   PolicyDocument:
@@ -132,17 +132,17 @@ Resources:
 #           ProjectionType: "ALL"
 #     BillingMode: "PAY_PER_REQUEST"
 # New User Scheduler Cloudwatch & Alarm Resources	
-# MissionLifeNewUsersSchedulerRule:
+# MissionLifeAllUsersSchedulerRule:
 #   Type: AWS::Events::Rule
 #   Properties:
 #     ScheduleExpression: "cron(00 13 * * ? *)"
 #     Targets:
-#     - Id: MissionLifeNewUsersSchedulerRuleTarget
-#     Arn: !GetAtt MissionLifeNewUsersSchedulerLambda.Arn
-# MissionLifeNewUsersSchedulerInvokePermission:
+#     - Id: MissionLifeAllUsersSchedulerRuleTarget
+#     Arn: !GetAtt MissionLifeAllUsersSchedulerLambda.Arn
+# MissionLifeAllUsersSchedulerInvokePermission:
 #   Type: AWS::Lambda::Permission
 #   Properties:
-#     FunctionName: !GetAtt MissionLifeNewUsersSchedulerLambda.Arn
+#     FunctionName: !GetAtt MissionLifeAllUsersSchedulerLambda.Arn
 #     Action: "lambda:InvokeFunction"
 #     Principal: "events.amazonaws.com"
-#     SourceArn: !GetAtt MissionLifeNewUsersSchedulerRule.Arn
+#     SourceArn: !GetAtt MissionLifeAllUsersSchedulerRule.Arn
