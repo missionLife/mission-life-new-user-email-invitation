@@ -25,7 +25,7 @@ Resources:
       QueueName: MissionLifeNewUsers
       ReceiveMessageWaitTimeSeconds: 0
       RedrivePolicy:
-        deadLetterTargetArn: !GetAtt MissionLifeNewUsersDeadLetter.Arn
+        deadLetterTargetArn: !GetAtt MissionLifeNewUsersDeadLetterQueue.Arn
         maxReceiveCount: 3
       VisibilityTimeout: 300
 
