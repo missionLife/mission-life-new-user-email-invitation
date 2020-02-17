@@ -40,6 +40,7 @@ async function processMessageBatch(messages) {
 }
 
 async function publishNewUsers(allCheckedUsers) {
+  console.log('######## THE NEW USERS #######', allCheckedUsers)
   const newUsers = [];
 
   for (let i = 0; i < allCheckedUsers.length; i++) {
@@ -48,7 +49,7 @@ async function publishNewUsers(allCheckedUsers) {
       newUsers.push(checkedUser);
     }
   }
-
+  console.log('######## THE NEW USERS LENGTH #######', newUsers.length)
   if (newUsers.length > 0) {
     return missionLifeNewUsers.publishNewUsers(newUsers);
   } else {
