@@ -27,8 +27,7 @@ async function processMessageBatch(messages) {
       supporterSponsorshipMessage.email,
       supporterSponsorshipMessage.sponsorshipId
     );
-    
-    console.log('Mission Life New Users Producer - supporterSponsorship: ', supporterSponsorship);
+
     batchPromises.push({
       exists: await missionLifeUsersDataRepo.checkIfUserExists(supporterSponsorship),
       email: supporterSponsorship.supporterEmail,
@@ -40,7 +39,6 @@ async function processMessageBatch(messages) {
 }
 
 async function publishNewUsers(allCheckedUsers) {
-  console.log('######## THE NEW USERS #######', allCheckedUsers)
   const newUsers = [];
 
   for (let i = 0; i < allCheckedUsers.length; i++) {
@@ -49,8 +47,9 @@ async function publishNewUsers(allCheckedUsers) {
       newUsers.push(checkedUser);
     }
   }
-  console.log('######## THE NEW USERS LENGTH #######', newUsers.length)
+  
   if (newUsers.length > 0) {
+    await missionLifeUsersDataRepo.addNewUsers(newUsers);
     return missionLifeNewUsers.publishNewUsers(newUsers);
   } else {
     return null;

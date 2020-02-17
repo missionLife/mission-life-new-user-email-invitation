@@ -204,6 +204,7 @@ Resources:
             - dynamodb:GetItem
             - dynamodb:GetRecords
             - dynamodb:BatchGetItem
+            - dynamodb:BatchWriteItem
             - dynamodb:DescribeTable
             - dynamodb:Query
             - dynamodb:Scan
