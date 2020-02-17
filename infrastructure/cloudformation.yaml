@@ -4,7 +4,28 @@ Transform: AWS::Serverless-2016-10-31
 Description: Mission Life New User Email Invitation
 Resources:
 
-# SQS Resources 
+# Mission Life Users Dynamo Resources
+  MissionLifeUsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: "MISSION_LIFE_USERS"
+      AttributeDefinitions:
+        -
+          AttributeName: "EMAIL"
+          AttributeType: "S"
+        -
+          AttributeName: "SPONSORSHIP_ID"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "EMAIL"
+          KeyType: "HASH"
+        - 
+          AttributeName: "SPONSORSHIP_ID"
+          KeyType: "RANGE"
+      BillingMode: "PAY_PER_REQUEST"
+
+# All Users SQS Resources 
   MissionLifeAllUsersDeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:
@@ -29,7 +50,7 @@ Resources:
         maxReceiveCount: 3
       VisibilityTimeout: 300
 
-# Lambda Resources
+# All Users Lambda Resources
   MissionLifeAllUsersSchedulerLambda:
     DependsOn:
       - MissionLifeAllUsersSchedulerLambdaExecutionRole
@@ -91,46 +112,115 @@ Resources:
         - - 'lambda/'
           - !Ref MissionLifeAllUsersSchedulerLambda
 
-# - PolicyName: dynamodb
-#   PolicyDocument:
-#     Statement:
-#     - Effect: Allow
-#       Action:
-#       - dynamodb:GetItem
-#       - dynamodb:GetRecords
-#       - dynamodb:BatchGetItem
-#       - dynamodb:DescribeTable
-#       - dynamodb:Query
-#       - dynamodb:Scan
-#       - dynamodb:PutItem
-#       Resource:
-#       - !GetAtt CoverageReportsTable.Arn
-# New User Scheduler Dynamo Resources
-# WebAppUsersTable:
-#   Type: AWS::DynamoDB::Table
-#   Properties:
-#     TableName: "WEB_APP_USERS"
-#     AttributeDefinitions:
-#       -
-#         AttributeName: "SEARCH_ID"
-#         AttributeType: "S"
-#       -
-#         AttributeName: "END_DATE"
-#         AttributeType: "S"
-#     KeySchema:
-#       -
-#         AttributeName: "SEARCH_ID"
-#         KeyType: "HASH"
-#     GlobalSecondaryIndexes:
-#       -
-#         IndexName: "END_DATE_GSI"
-#         KeySchema:
-#           -
-#           AttributeName: "END_DATE"
-#           KeyType: "HASH"
-#         Projection:
-#           ProjectionType: "ALL"
-#     BillingMode: "PAY_PER_REQUEST"
+# New Users SQS Resources 
+  MissionLifeNewUsersDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      DelaySeconds: 0
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 172800
+      QueueName: MissionLifeNewUsersDeadLetter
+      ReceiveMessageWaitTimeSeconds: 0
+      VisibilityTimeout: 300
+  MissionLifeNewUsersQueue:
+    DependsOn:
+      - MissionLifeNewUsersDeadLetterQueue
+    Type: AWS::SQS::Queue
+    Properties:
+      DelaySeconds: 0
+      MaximumMessageSize: 262144
+      MessageRetentionPeriod: 172800
+      QueueName: MissionLifeNewUsers
+      ReceiveMessageWaitTimeSeconds: 0
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt MissionLifeNewUsersDeadLetterQueue.Arn
+        maxReceiveCount: 3
+      VisibilityTimeout: 300
+
+# New Users Lambda Resources
+  MissionLifeNewUsersProducerLambda:
+    DependsOn:
+      - MissionLifeNewUsersProducerLambdaExecutionRole
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../dist/mission-life-new-users-producer.zip
+      FunctionName: missionLifeNewUsersProducer
+      Handler: index.handler
+      MemorySize: 256
+      Role: !GetAtt MissionLifeNewUsersProducerLambdaExecutionRole.Arn
+      Runtime: nodejs12.x
+      Timeout: 300
+      Environment:
+        Variables:
+          MISSION_LIFE_NEW_USERS_QUEUE_URL: {{{MISSION_LIFE_NEW_USERS_QUEUE_URL}}}
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt MissionLifeAllUsersQueue.Arn
+            BatchSize: 10
+
+  MissionLifeNewUsersProducerLambdaExecutionRole:
+    DependsOn:
+      - MissionLifeUsersTable
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: '/'
+      Policies:
+      - PolicyName: logs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+      - PolicyName: sqs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - sqs:*
+            Resource: 
+              - !GetAtt MissionLifeNewUsersQueue.Arn
+              - !GetAtt MissionLifeNewUsersDeadLetterQueue.Arn
+              - !GetAtt MissionLifeAllUsersQueue.Arn
+              - !GetAtt MissionLifeAllUsersDeadLetterQueue.Arn
+      - PolicyName: dynamodb
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - dynamodb:GetItem
+            - dynamodb:GetRecords
+            - dynamodb:BatchGetItem
+            - dynamodb:DescribeTable
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:PutItem
+            Resource:
+            - !GetAtt MissionLifeUsersTable.Arn
+
+  MissionLifeNewUsersProducerLambdaLogGroup:
+    DependsOn: MissionLifeNewUsersProducerLambda
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 14
+      LogGroupName: !Join
+        - ''
+        - - 'lambda/'
+          - !Ref MissionLifeNewUsersProducerLambda
+
 # New User Scheduler Cloudwatch & Alarm Resources	
 # MissionLifeAllUsersSchedulerRule:
 #   Type: AWS::Events::Rule

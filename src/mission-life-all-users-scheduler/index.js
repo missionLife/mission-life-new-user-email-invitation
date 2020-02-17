@@ -10,7 +10,7 @@ AWS.config.update({ region: process.env.AWS_REGION });
 const missionLifeAllUsersQueue = new SQS({
   awsRegion: process.env.AWS_REGION,
   queueUrl: process.env.MISSION_LIFE_ALL_USERS_QUEUE_URL
-})
+});
 
 async function getUsers(event, context) {
   const supporterSponsorships = [];
