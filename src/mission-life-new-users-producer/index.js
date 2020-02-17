@@ -21,7 +21,8 @@ const missionLifeUsersDataRepo = new MissionLifeUsersDataRepo(documentClient);
 async function processMessageBatch(messages) {
   const batchPromises = [];
   for (let i = 0; i < messages.length; i++) {
-    const supporterSponsorshipMessage = messages[i];
+    const supporterSponsorshipMessage = JSON.stringify(messages[i]);
+    console.log('Mission Life New Users Producer - supporterSponsorshipMessage: ', supporterSponsorshipMessage);
     const supporterSponsorship = new SupporterSponsorship(
       supporterSponsorshipMessage.email,
       supporterSponsorshipMessage.sponsorshipId
@@ -63,6 +64,6 @@ exports.handler = async (event, context) => {
   try {
     return await consume(event, context);
   } catch (error) {
-    throw new Error(`An error occurred in the Mission Life New Users Scheduler Lambda: ${error.message}`);
+    throw new Error(`An error occurred in the Mission Life New Users Producer Lambda: ${error.message}`);
   }
 };
