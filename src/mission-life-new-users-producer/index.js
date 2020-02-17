@@ -21,7 +21,7 @@ const missionLifeUsersDataRepo = new MissionLifeUsersDataRepo(documentClient);
 async function processMessageBatch(messages) {
   const batchPromises = [];
   for (let i = 0; i < messages.length; i++) {
-    const supporterSponsorshipMessage = JSON.stringify(messages[i]);
+    const supporterSponsorshipMessage = JSON.stringify(messages[i].body);
     console.log('Mission Life New Users Producer - supporterSponsorshipMessage: ', supporterSponsorshipMessage);
     const supporterSponsorship = new SupporterSponsorship(
       supporterSponsorshipMessage.email,
