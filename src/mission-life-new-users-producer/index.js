@@ -29,14 +29,13 @@ async function processMessageBatch(messages) {
     );
     
     batchPromises.push({
-      exists: missionLifeUsersDataRepo.checkIfUserExists(supporterSponsorship),
+      exists: await missionLifeUsersDataRepo.checkIfUserExists(supporterSponsorship),
       email: supporterSponsorship.supporterEmail,
       sponsorshipId: supporterSponsorship.sponsorshipId
     });
   }
 
-  const results = await Promise.all(batchPromises);
-  return publishNewUsers(results);
+  return publishNewUsers(batchPromises);
 }
 
 async function publishNewUsers(allCheckedUsers) {
