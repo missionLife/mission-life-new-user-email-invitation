@@ -39,6 +39,8 @@ async function processMessageBatch(messages) {
 }
 
 async function publishNewUsers(allCheckedUsers) {
+  console.log('ALL USERS: ', JSON.stringify(allCheckedUsers, null, 2));
+  console.log('ALL USERS Length: ', allCheckedUsers.length);
   const newUsers = [];
 
   for (let i = 0; i < allCheckedUsers.length; i++) {
