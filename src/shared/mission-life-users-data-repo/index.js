@@ -30,25 +30,21 @@ export default class MissionLifeUsersDataRepo {
   }
 
   async addNewUsers(newUsers) {
-    let messageBatchParams = {
-      RequestItems: {}
-    }
-
-    messageBatchParams.RequestItems['MISSION_LIFE_USERS'] = [];
+    let putItemPromises = [];
 
     for (let i = 0; i < newUsers.length; i++) {
       const newUser = newUsers[i];
-      let dynamoMessageItem = {
-        PutRequest: {
-          Item: {
-            EMAIL: newUser.email,
-            SPONSORSHIP_ID: newUser.sponsorshipId
-          }
+      let putItemParams = {
+        TableName: 'MISSION_LIFE_USERS',
+        Item: {
+          EMAIL: newUser.email,
+          SPONSORSHIP_ID: newUser.sponsorshipId
         }
       }
 
-      messageBatchParams.RequestItems['MISSION_LIFE_USERS'].push(dynamoMessageItem);
+      putItemPromises.push(this.documentClient.put(putItemParams).promise());
     }
-    return this.documentClient.batchWrite(messageBatchParams).promise();
+
+    return Promise.all(putItemPromises);
   }
 }
