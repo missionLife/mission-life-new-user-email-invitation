@@ -51,7 +51,7 @@ async function publishNewUsers(allCheckedUsers) {
   }
   
   if (newUsers.length > 0) {
-    await missionLifeUsersDataRepo.addNewUsers(newUsers);
+    await missionLifeUsersDataRepo.addNewUsers(allCheckedUsers);
     return missionLifeNewUsers.publishNewUsers(newUsers);
   } else {
     return null;
