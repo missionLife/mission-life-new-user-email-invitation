@@ -15,10 +15,10 @@ export default class MissionLifeUsersDataRepo {
     const params = {
       TableName: 'MISSION_LIFE_USERS',
       KeyConditionExpression: '#email = :e',
-      ExpressionAttributesNames: {
+      ExpressionAttributeNames: {
         '#email': 'EMAIL'
       },
-      ExpressionAttributesValues: {
+      ExpressionAttributeValues: {
         ':e': `${supporterSponsorship.supporterEmail}`
       },
       Select: 'COUNT'
