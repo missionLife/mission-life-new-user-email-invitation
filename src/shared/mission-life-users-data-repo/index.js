@@ -41,12 +41,8 @@ export default class MissionLifeUsersDataRepo {
       let dynamoMessageItem = {
         PutRequest: {
           Item: {
-            'EMAIL': { 
-              'S': newUser.email
-            },
-            'SPONSORSHIP_ID': {
-              'S': newUser.sponsorshipId
-            }
+            EMAIL: newUser.email,
+            SPONSORSHIP_ID: newUser.sponsorshipId
           }
         }
       }

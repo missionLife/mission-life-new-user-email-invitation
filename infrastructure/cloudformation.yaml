@@ -15,7 +15,7 @@ Resources:
           AttributeType: "S"
         -
           AttributeName: "SPONSORSHIP_ID"
-          AttributeType: "S"
+          AttributeType: "N"
       KeySchema:
         -
           AttributeName: "EMAIL"
