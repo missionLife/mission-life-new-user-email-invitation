@@ -8,7 +8,7 @@ Resources:
   MissionLifeUsersTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: "MISSION_LIFE_USERS_TWO"
+      TableName: "MISSION_LIFE_USERS"
       AttributeDefinitions:
         -
           AttributeName: "EMAIL"
