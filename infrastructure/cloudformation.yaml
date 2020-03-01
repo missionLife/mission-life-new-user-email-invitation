@@ -152,7 +152,7 @@ Resources:
       Timeout: 300
       Environment:
         Variables:
-          MISSION_LIFE_COGNITO_USER_POOL_ID: {{{MISSION_LIFE_COGNITO_USER_POOL_ID}}}
+          MISSION_LIFE_NEW_USERS_QUEUE_URL: {{{MISSION_LIFE_NEW_USERS_QUEUE_URL}}}
       Events:
         SQSEvent:
           Type: SQS
@@ -237,7 +237,7 @@ Resources:
       Timeout: 300
       Environment:
         Variables:
-          MISSION_LIFE_NEW_USERS_QUEUE_URL: {{{MISSION_LIFE_NEW_USERS_QUEUE_URL}}}
+          MISSION_LIFE_COGNITO_USER_POOL_ID: {{{MISSION_LIFE_COGNITO_USER_POOL_ID}}}
       Events:
         SQSEvent:
           Type: SQS
