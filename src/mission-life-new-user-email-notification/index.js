@@ -98,9 +98,6 @@ async function sendNewUserEmail(newUsers) {
     // The character encoding for the email.
     const charset = "UTF-8";
 
-    // Create a new SES object.
-    var ses = new aws.SES();
-
     // Specify the parameters to pass to the API.
     var params = {
       Source: sender,
@@ -155,7 +152,7 @@ exports.handler = async (event, context) => {
     return await consume(event, context);
   } catch (error) {
     throw new Error(
-      `An error occurred in the Mission Life New Users Producer Lambda: ${error.message}`
+      `An error occurred in the Mission Life New User Email Notification Lambda: ${error.message}`
     );
   }
 };
