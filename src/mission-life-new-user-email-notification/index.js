@@ -7,7 +7,9 @@ AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
 
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
-const ses = new AWS.SES();
+const ses = new AWS.SES({
+  region: 'us-east-1'
+});
 
 async function createCognitoUsers(messages) {
   const batchPromises = [];
