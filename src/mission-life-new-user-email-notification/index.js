@@ -35,7 +35,7 @@ async function createCognitoUsers(messages) {
           Value: newUser.email
         },
         {
-          Name: 'custom-tmp-pwd',
+          Name: 'custom:custom-tmp-pwd',
           Value: temporaryPassword
         }
         /* more items */
