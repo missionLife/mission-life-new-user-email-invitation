@@ -27,7 +27,7 @@ async function createCognitoUsers(messages) {
       UserPoolId: process.env.MISSION_LIFE_COGNITO_USER_POOL_ID, /* required */
       Username: newUser.email, /* required */
       ForceAliasCreation: false,
-      MessageAction: 'SUPRESS',
+      MessageAction: 'SUPPRESS',
       TemporaryPassword: temporaryPassword,
       UserAttributes: [
         {
