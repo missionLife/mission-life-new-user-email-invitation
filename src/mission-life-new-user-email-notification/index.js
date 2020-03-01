@@ -77,7 +77,7 @@ async function sendNewUserEmail(newUsers) {
     // Specify a configuration set. If you do not want to use a configuration
     // set, comment the following variable, and the
     // ConfigurationSetName : configuration_set argument below.
-    const configuration_set = "ConfigSet";
+    // const configuration_set = "ConfigSet";
 
     // The subject line for the email.
     const subject = "Welcome to Mission Life";
@@ -124,8 +124,7 @@ async function sendNewUserEmail(newUsers) {
             Charset: charset
           }
         }
-      },
-      ConfigurationSetName: configuration_set
+      }
     };
     console.log('THE SES PARAMS: ', JSON.stringify(params,null,2));
     //Try to send the email.
