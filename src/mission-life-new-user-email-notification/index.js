@@ -132,8 +132,8 @@ async function sendNewUserEmail(newUsers) {
 async function getUserEmail(attributes, username) {
   for (let i = 0; i < attributes.length; i++) {
     const attributeObject = attributes[i];
-    if (attributeObject.email) {
-      return attributeObject.email;
+    if (attributeObject.Name === 'email') {
+      return attributeObject.Value;
     }
   }
   throw new Error(`
