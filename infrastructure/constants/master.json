@@ -1,4 +1,6 @@
 {
+  "MISSION_LIFE_COGNITO_USER_POOL_ARN": "arn:aws:cognito-idp:us-east-2:010242410260:userpool/us-east-2_laC3yucNE",
+  "MISSION_LIFE_COGNITO_USER_POOL_ID": "us-east-2_laC3yucNE",
   "MISSION_LIFE_ALL_USERS_QUEUE_URL": "https://sqs.us-east-2.amazonaws.com/010242410260/MissionLifeAllUsers",
   "MISSION_LIFE_NEW_USERS_QUEUE_URL": "https://sqs.us-east-2.amazonaws.com/010242410260/MissionLifeNewUsers",
   "REACH_BASE_URL": "https://missionlife.reachapp.co/api/v1",

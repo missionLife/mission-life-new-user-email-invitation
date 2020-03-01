@@ -152,7 +152,7 @@ Resources:
       Timeout: 300
       Environment:
         Variables:
-          MISSION_LIFE_NEW_USERS_QUEUE_URL: {{{MISSION_LIFE_NEW_USERS_QUEUE_URL}}}
+          MISSION_LIFE_COGNITO_USER_POOL_ID: {{{MISSION_LIFE_COGNITO_USER_POOL_ID}}}
       Events:
         SQSEvent:
           Type: SQS
@@ -221,6 +221,91 @@ Resources:
         - ''
         - - 'lambda/'
           - !Ref MissionLifeNewUsersProducerLambda
+
+# New User Email Notification Lambda Resources
+  MissionLifeNewUserEmailNotificationProducerLambda:
+    DependsOn:
+      - MissionLifeNewUserEmailNotificationProducerLambdaExecutionRole
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../dist/mission-life-new-user-email-notification.zip
+      FunctionName: missionLifeNewUserEmailNotification
+      Handler: index.handler
+      MemorySize: 256
+      Role: !GetAtt MissionLifeNewUserEmailNotificationLambdaExecutionRole.Arn
+      Runtime: nodejs12.x
+      Timeout: 300
+      Environment:
+        Variables:
+          MISSION_LIFE_NEW_USERS_QUEUE_URL: {{{MISSION_LIFE_NEW_USERS_QUEUE_URL}}}
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt MissionLifeNewUsersQueue.Arn
+            BatchSize: 10
+
+  MissionLifeNewUserEmailNotificationLambdaExecutionRole:
+    DependsOn:
+      - MissionLifeUsersTable
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: '/'
+      Policies:
+      - PolicyName: logs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+      - PolicyName: sqs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - sqs:*
+            Resource: 
+              - !GetAtt MissionLifeNewUsersQueue.Arn
+              - !GetAtt MissionLifeNewUsersDeadLetterQueue.Arn
+      - PolicyName: email
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
+            Resource: "*"
+      - PolicyName: cognito
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - cognito-idp:AdminCreateUser
+            - ses:SendRawEmail
+            Resource: {{{MISSION_LIFE_COGNITO_USER_POOL_ARN}}}
+    
+
+  MissionLifeNewUserEmailNotificationLambdaLogGroup:
+    DependsOn: MissionLifeNewUserEmailNotificationLambda
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 14
+      LogGroupName: !Join
+        - ''
+        - - 'lambda/'
+          - !Ref MissionLifeNewUserEmailNotificationLambda
 
 # New User Scheduler Cloudwatch & Alarm Resources	
 # MissionLifeAllUsersSchedulerRule:

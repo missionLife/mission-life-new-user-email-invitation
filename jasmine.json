@@ -3,6 +3,7 @@
   "spec_files": [
     "shared/**/*.spec.js",
     "mission-life-all-users-scheduler/mission-life-all-users-publisher/**/*.spec.js",
-    "mission-life-new-users-producer/mission-life-new-users-publisher/**/*.spec.js"
+    "mission-life-new-users-producer/mission-life-new-user-email-notification/**/*.spec.js",
+    "mission-life-new-users-producer/mission-life-new-users-producer/**/*.spec.js"
   ]
 }

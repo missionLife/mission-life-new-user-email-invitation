@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "aws-sdk": "2.619.0",
+    "generate-password": "1.5.1",
     "node-fetch": "^2.6.0"
   }
 }
