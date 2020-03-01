@@ -57,10 +57,13 @@ async function sendNewUserEmail(newUsers) {
 
   for (let i = 0; i < newUsers.length; i++) {
     const newUser = newUsers[i];
+    console.log('NEW USER OBJECT: ', JSON.stringify(newUser,null,2));
+    console.log('NEW USER OBJECT ATTRIBUTES: ', JSON.stringify(newUser.User.Attributes,null,2));
     const newUserEmail = getUserEmail(
       newUser.User.Attributes,
       newUser.User.Username
     );
+    console.log('NEW USER EMAIL: ', newUserEmail);
     // Replace sender@example.com with your "From" address.
     // This address must be verified with Amazon SES.
     const sender = "Admin <admin@missionlifechange.org>";
@@ -122,7 +125,7 @@ async function sendNewUserEmail(newUsers) {
       },
       ConfigurationSetName: configuration_set
     };
-
+    console.log('THE SES PARAMS: ', JSON.stringify(params,null,2));
     //Try to send the email.
     batchPromises.push(ses.sendEmail(params).promise());
   }
