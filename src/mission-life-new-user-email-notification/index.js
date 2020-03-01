@@ -49,7 +49,7 @@ async function createCognitoUsers(messages) {
 }
 
 async function sendNewUserEmail(newUsers) {
-  console.log('NEW CREATED USERS: ', newUsers);
+  console.log('NEW CREATED USERS: ', JSON.stringify(newUsers,null,2));
   return Promise.resolve({});
   // const batchPromises = [];
 
