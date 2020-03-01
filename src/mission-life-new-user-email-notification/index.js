@@ -39,6 +39,10 @@ async function createCognitoUsers(messages) {
         {
           Name: "custom:custom-tmp-pwd",
           Value: temporaryPassword
+        },
+        {
+          Name: 'email_verified',
+          Value: true
         }
         /* more items */
       ]
