@@ -225,7 +225,7 @@ Resources:
 # New User Email Notification Lambda Resources
   MissionLifeNewUserEmailNotificationProducerLambda:
     DependsOn:
-      - MissionLifeNewUserEmailNotificationProducerLambdaExecutionRole
+      - MissionLifeNewUserEmailNotificationLambdaExecutionRole
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ../dist/mission-life-new-user-email-notification.zip
@@ -247,7 +247,7 @@ Resources:
 
   MissionLifeNewUserEmailNotificationLambdaExecutionRole:
     DependsOn:
-      - MissionLifeUsersTable
+      - MissionLifeNewUsersQueue
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
