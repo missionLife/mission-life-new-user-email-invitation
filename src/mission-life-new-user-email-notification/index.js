@@ -42,7 +42,7 @@ async function createCognitoUsers(messages) {
         },
         {
           Name: 'email_verified',
-          Value: true
+          Value: 'true'
         }
         /* more items */
       ]
