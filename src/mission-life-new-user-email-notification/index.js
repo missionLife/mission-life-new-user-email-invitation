@@ -69,6 +69,10 @@ async function sendNewUserEmail(newUsers) {
       newUser.User.Attributes,
       newUser.User.Username
     );
+    const newUserTempPassword = getUserTempPassword(
+      newUser.User.Attributes,
+      newUser.User.Username
+    );
     console.log('NEW USER EMAIL: ', newUserEmail);
     // Replace sender@example.com with your "From" address.
     // This address must be verified with Amazon SES.
@@ -76,7 +80,7 @@ async function sendNewUserEmail(newUsers) {
 
     // Replace recipient@example.com with a "To" address. If your account
     // is still in the sandbox, this address must be verified.
-    const recipient = newUserEmail;
+    const recipient = `verify <${newUserEmail}>`;
 
     // Specify a configuration set. If you do not want to use a configuration
     // set, comment the following variable, and the
@@ -88,19 +92,22 @@ async function sendNewUserEmail(newUsers) {
 
     // The email body for recipients with non-HTML email clients.
     const body_text =
-      "Amazon SES Test (SDK for JavaScript in Node.js)\r\n" +
-      "This email was sent with Amazon SES using the " +
-      "AWS SDK for JavaScript in Node.js.";
+      "Getting Started\r\n" +
+      "Welcome to the Mission Life Change. " +
+      "We've created a login with a temporary password for you. ";
+      `Your username is ${newUserEmail}. `;
+      `And your temporary password is ${newUserTempPassword}`;
 
     // The HTML body of the email.
     const body_html = `<html>
     <head></head>
     <body>
-      <h1>Amazon SES Test (SDK for JavaScript in Node.js)</h1>
-      <p>This email was sent with
-        <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
-        <a href='https://aws.amazon.com/sdk-for-node-js/'>
-          AWS SDK for JavaScript in Node.js</a>.</p>
+      <h1>Welcome to the Mission Life Change</h1>
+      <p>
+        We've created a login with a temporary password for you.<br>
+        Your username is ${newUserEmail}.<br>
+        And your temporary password is ${newUserTempPassword}
+      </p>
     </body>
     </html>`;
 
@@ -147,6 +154,19 @@ function getUserEmail(attributes, username) {
   throw new Error(`
     Error in Mission Life New User Email Notification Lambda.
     New Cognito User does not have email attribute. Username: ${username}
+  `);
+}
+
+function getUserTempPassword(attributes, username) {
+  for (let i = 0; i < attributes.length; i++) {
+    const attributeObject = attributes[i];
+    if (attributeObject.Name === 'custom:custom-tmp-pwd') {
+      return attributeObject.Value;
+    }
+  }
+  throw new Error(`
+    Error in Mission Life New User Email Notification Lambda.
+    New Cognito User does not have temp password attribute. Username: ${username}
   `);
 }
 
