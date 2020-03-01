@@ -223,7 +223,7 @@ Resources:
           - !Ref MissionLifeNewUsersProducerLambda
 
 # New User Email Notification Lambda Resources
-  MissionLifeNewUserEmailNotificationProducerLambda:
+  MissionLifeNewUserEmailNotificationLambda:
     DependsOn:
       - MissionLifeNewUserEmailNotificationLambdaExecutionRole
     Type: AWS::Serverless::Function
