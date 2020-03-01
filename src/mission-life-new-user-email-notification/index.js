@@ -1,6 +1,6 @@
 // Use the AWS.CognitoIdentityServiceProvider AdminCreateUser
 import AWS from 'aws-sdk';
-import NewUser from '../shared/models/new-user';
+import NewUser from './shared/models/new-user';
 import GeneratePassword from 'generate-password';
 
 AWS.config.setPromisesDependency(Promise);
