@@ -132,7 +132,7 @@ async function sendNewUserEmail(newUsers) {
   return Promise.all(batchPromises);
 }
 
-async function getUserEmail(attributes, username) {
+function getUserEmail(attributes, username) {
   for (let i = 0; i < attributes.length; i++) {
     const attributeObject = attributes[i];
     if (attributeObject.Name === 'email') {
