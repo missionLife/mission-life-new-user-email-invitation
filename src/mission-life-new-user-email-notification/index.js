@@ -2,7 +2,7 @@
 import AWS from "aws-sdk";
 import NewUser from "./shared/models/new-user";
 import GeneratePassword from "generate-password";
-import * as CognitoUserUtils from '../shared/cognito-user-utils';
+import * as CognitoUserUtils from './shared/cognito-user-utils';
 
 
 AWS.config.setPromisesDependency(Promise);
