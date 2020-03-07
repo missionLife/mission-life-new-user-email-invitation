@@ -2,6 +2,8 @@
 import AWS from "aws-sdk";
 import NewUser from "./shared/models/new-user";
 import GeneratePassword from "generate-password";
+import * as CognitoUserUtils from '../shared/cognito-user-utils';
+
 
 AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
@@ -65,11 +67,11 @@ async function sendNewUserEmail(newUsers) {
     const newUser = newUsers[i];
     console.log('NEW USER OBJECT: ', JSON.stringify(newUser,null,2));
     console.log('NEW USER OBJECT ATTRIBUTES: ', JSON.stringify(newUser.User.Attributes,null,2));
-    const newUserEmail = getUserEmail(
+    const newUserEmail = CognitoUserUtils.getUserEmail(
       newUser.User.Attributes,
       newUser.User.Username
     );
-    const newUserTempPassword = getUserTempPassword(
+    const newUserTempPassword = CognitoUserUtils.getUserTempPassword(
       newUser.User.Attributes,
       newUser.User.Username
     );
@@ -82,11 +84,6 @@ async function sendNewUserEmail(newUsers) {
     // is still in the sandbox, this address must be verified.
     const recipient = `verify <${newUserEmail}>`;
 
-    // Specify a configuration set. If you do not want to use a configuration
-    // set, comment the following variable, and the
-    // ConfigurationSetName : configuration_set argument below.
-    // const configuration_set = "ConfigSet";
-
     // The subject line for the email.
     const subject = "Welcome to Mission Life";
 
@@ -97,18 +94,57 @@ async function sendNewUserEmail(newUsers) {
       "We've created a login with a temporary password for you. ";
       `Your username is ${newUserEmail}. `;
       `And your temporary password is ${newUserTempPassword}`;
+    
+    const MissionLifeLogo = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-logo-menu-2.original.png';
+    const MissionLifeAppUrl = 'https://d1s3z7p9p47ieq.cloudfront.net/';
 
     // The HTML body of the email.
-    const body_html = `<html>
-    <head></head>
-    <body>
-      <h1>Welcome to the Mission Life Change</h1>
-      <p>
-        We've created a login with a temporary password for you.<br>
-        Your username is ${newUserEmail}.<br>
-        And your temporary password is ${newUserTempPassword}
-      </p>
-    </body>
+    const body_html = `
+    <html>
+      <head></head>
+      <body style="margin: 0; padding: 0;">
+        <table align="center" cellpadding="0" cellspacing="0" width="600">
+          <tr>
+            <td align="center" bgcolor="#47c6f3" style="padding: 40px 0 30px 0; font-family: Arial, sans-serif;">
+              <img src="${MissionLifeLogo}" alt="Welcome to Mission Life Change" width="425" height="82" style="display: block;" />
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="border-top: 1px solid #e3e6ea;">
+                    <h1 style="text-align: center; font-family: Arial, sans-serif;">Welcome to<br>Mission Life Change</h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 1px solid #e3e6ea;">
+                    <p style="text-align: center; font-family: Arial, sans-serif;">
+                      We've created a login with a temporary password for you.<br>
+                      Your username is <strong>${newUserEmail}</strong>.<br>
+                      And your temporary password is <strong>${newUserTempPassword}</strong><br>
+                      <a href="${MissionLifeAppUrl}">Click here</a> to login.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#e54616" style="padding: 40px 30px 40px 30px;">
+              <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
+                    &reg; Mission Life Change 2020
+                  </td>
+                  <td align="right" width="25%">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>  
     </html>`;
 
     // The character encoding for the email.
@@ -142,32 +178,6 @@ async function sendNewUserEmail(newUsers) {
     batchPromises.push(ses.sendEmail(params).promise());
   }
   return Promise.all(batchPromises);
-}
-
-function getUserEmail(attributes, username) {
-  for (let i = 0; i < attributes.length; i++) {
-    const attributeObject = attributes[i];
-    if (attributeObject.Name === 'email') {
-      return attributeObject.Value;
-    }
-  }
-  throw new Error(`
-    Error in Mission Life New User Email Notification Lambda.
-    New Cognito User does not have email attribute. Username: ${username}
-  `);
-}
-
-function getUserTempPassword(attributes, username) {
-  for (let i = 0; i < attributes.length; i++) {
-    const attributeObject = attributes[i];
-    if (attributeObject.Name === 'custom:custom-tmp-pwd') {
-      return attributeObject.Value;
-    }
-  }
-  throw new Error(`
-    Error in Mission Life New User Email Notification Lambda.
-    New Cognito User does not have temp password attribute. Username: ${username}
-  `);
 }
 
 async function consume(event, context) {
