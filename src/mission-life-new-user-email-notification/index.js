@@ -114,7 +114,7 @@ async function sendNewUserEmail(newUsers) {
               <table cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                   <td style="border-top: 1px solid #e3e6ea;">
-                    <h1 style="text-align: center; font-family: Arial, sans-serif;">Welcome to<br>Mission Life Change</h1>
+                    <h1 style="padding:30px 0px 0px 0px;text-align: center; font-family: Arial, sans-serif;">Welcome to<br>Mission Life Change</h1>
                   </td>
                 </tr>
                 <tr>
