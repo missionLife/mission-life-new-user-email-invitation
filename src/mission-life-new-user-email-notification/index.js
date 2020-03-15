@@ -123,7 +123,7 @@ async function sendNewUserEmail(newUsers) {
                       We've created a login with a temporary password for you.<br>
                       Your username is <strong>${newUserEmail}</strong>.<br>
                       And your temporary password is <strong>${newUserTempPassword}</strong><br>
-                      <a style="display:inline-block;margin:10px 0px 30px 0px;color:#ffffff;background: #63BC46;padding: 11px 38px 11px 38px;font-weight: bold;text-decoration: none;text-align: center;font-family: Arial, sans-serif;border-radius:3px;" href="${MissionLifeAppUrl}">
+                      <a style="display:inline-block;margin:30px 0px;color:#ffffff;background: #63BC46;padding: 11px 38px 11px 38px;font-weight: bold;text-decoration: none;text-align: center;font-family: Arial, sans-serif;border-radius:3px;" href="${MissionLifeAppUrl}">
                         Click here to login
                       </a>
                     </p>
