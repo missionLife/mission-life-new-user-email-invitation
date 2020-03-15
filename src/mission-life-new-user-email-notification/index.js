@@ -118,12 +118,14 @@ async function sendNewUserEmail(newUsers) {
                   </td>
                 </tr>
                 <tr>
-                  <td style="border-bottom: 1px solid #e3e6ea;">
-                    <p style="text-align: center; font-family: Arial, sans-serif;">
+                  <td>
+                    <p style="text-align: center; font-family: Arial, sans-serif; font-size: 18px;">
                       We've created a login with a temporary password for you.<br>
                       Your username is <strong>${newUserEmail}</strong>.<br>
                       And your temporary password is <strong>${newUserTempPassword}</strong><br>
-                      <a href="${MissionLifeAppUrl}">Click here</a> to login.
+                      <a style="color:#ffffff;background: #63BC46;padding: 11px 38px 11px 38px;font-weight: bold;text-decoration: none;text-align: center;font-family: Arial, sans-serif;border-radius:3px;" href="${MissionLifeAppUrl}">
+                        Click here to login
+                      </a>.
                     </p>
                   </td>
                 </tr>
