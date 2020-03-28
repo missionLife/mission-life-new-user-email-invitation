@@ -37,11 +37,13 @@ describe('MissionLifeAllUsersPublisher', () => {
     let supporterSponsorships = [
       new SupporterSponsorship(
         'aUserEmail@email.com',
-        123
+        123,
+        'aFoundation'
       ),
       new SupporterSponsorship(
         'aUserEmail2@email.com',
-        456
+        456,
+        'aFoundation'
       )
     ];
 
