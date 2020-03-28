@@ -31,7 +31,8 @@ export default class MissionLifeAllUsersPublisher {
     for (const supporterSponsorship of supporterSponsorships) {
       const message = {
         email: supporterSponsorship.supporterEmail,
-        sponsorshipId: supporterSponsorship.sponsorshipId
+        sponsorshipId: supporterSponsorship.sponsorshipId,
+        foundation: supporterSponsorship.foundation
       };
       formattedMessages.push(message);
 

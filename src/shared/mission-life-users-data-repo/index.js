@@ -38,7 +38,8 @@ export default class MissionLifeUsersDataRepo {
         TableName: 'MISSION_LIFE_USERS',
         Item: {
           EMAIL: newUser.email,
-          SPONSORSHIP_ID: newUser.sponsorshipId
+          SPONSORSHIP_ID: newUser.sponsorshipId,
+          FOUNDATION: newUser.foundation
         }
       }
 

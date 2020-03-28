@@ -25,13 +25,15 @@ async function processMessageBatch(messages) {
     
     const supporterSponsorship = new SupporterSponsorship(
       supporterSponsorshipMessage.email,
-      supporterSponsorshipMessage.sponsorshipId
+      supporterSponsorshipMessage.sponsorshipId,
+      supporterSponsorship.foundation
     );
 
     batchPromises.push({
       exists: await missionLifeUsersDataRepo.checkIfUserExists(supporterSponsorship),
       email: supporterSponsorship.supporterEmail,
-      sponsorshipId: supporterSponsorship.sponsorshipId
+      sponsorshipId: supporterSponsorship.sponsorshipId,
+      foundation: supporterSponsorship.foundation
     });
   }
 
@@ -51,7 +53,7 @@ async function publishNewUsers(allCheckedUsers) {
   }
   
   if (newUsers.length > 0) {
-    await missionLifeUsersDataRepo.addNewUsers(allCheckedUsers);
+    await missionLifeUsersDataRepo.addNewUsers(newUsers);
     return missionLifeNewUsers.publishNewUsers(newUsers);
   } else {
     return null;

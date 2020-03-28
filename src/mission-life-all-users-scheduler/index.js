@@ -23,19 +23,17 @@ async function getUsers(event, context) {
   for (let sponsorship of allSponsorships) {
     const supporters = await reachService.getSupporters(sponsorship);
 
-    console.log('####### THE SUPPORTER ######## - ', supporters);
-
     for (let supporterData of supporters) {
+      console.log('####### THE SUPPORTER DATA WITH SPONSORSHIP ######## - ', supporterData);
       supporterSponsorships.push(
         new SupporterSponsorship(
           supporterData.supporter.email,
-          sponsorship.id
+          sponsorship.id,
+          supporterData.sponsorship.place.title
         )
       );
     }
   }
-
-  console.log('####### THE SUPPORTER_SPONSORSHIP KEY PAIRS ######## - ', supporterSponsorships);
 
   const missionLifeAllUsersPublisher = new MissionLifeAllUsersPublisher({
     sqs: missionLifeAllUsersQueue,
