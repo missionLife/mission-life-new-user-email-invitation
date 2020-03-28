@@ -11,7 +11,8 @@ describe('New User', () => {
     beforeEach(() => {
       newUser = {
         email: 'newUser@email.com',
-        sponsorshipId: 123
+        sponsorshipId: 123,
+        foundation: 'Formavida'
       }
     });
 
@@ -49,6 +50,19 @@ describe('New User', () => {
     it('should throw if newUser.sponsorshipId is not a number', () => {
       newUser.sponsorshipId = '123';
       expect(() => new NewUser(newUser)).toThrowError(/newUser.sponsorshipId/);
+    });
+
+    it('should throw if newUser.foundation is not a string', () => {
+      newUser.foundation = {};
+      expect(() => new NewUser(newUser)).toThrowError(/newUser.foundation/);
+    });
+    it('should throw if newUser.foundation is not a string', () => {
+      newUser.foundation = true;
+      expect(() => new NewUser(newUser)).toThrowError(/newUser.foundation/);
+    });
+    it('should throw if newUser.foundation is not a string', () => {
+      newUser.foundation = 123;
+      expect(() => new NewUser(newUser)).toThrowError(/newUser.foundation/);
     });
 
 

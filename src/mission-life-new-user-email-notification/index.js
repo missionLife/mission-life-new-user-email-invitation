@@ -43,6 +43,10 @@ async function createCognitoUsers(messages) {
           Value: temporaryPassword
         },
         {
+          Name: 'custom:user-foundation',
+          Value: newUser.foundation
+        },
+        {
           Name: 'email_verified',
           Value: 'true'
         }
@@ -75,6 +79,10 @@ async function sendNewUserEmail(newUsers) {
       newUser.User.Attributes,
       newUser.User.Username
     );
+    const newUserFoundation = CognitoUserUtils.getUserFoundation(
+      newUser.User.Attributes,
+      newUser.User.Username
+    )
     console.log('NEW USER EMAIL: ', newUserEmail);
     // Replace sender@example.com with your "From" address.
     // This address must be verified with Amazon SES.
@@ -100,54 +108,173 @@ async function sendNewUserEmail(newUsers) {
 
     // The HTML body of the email.
     const body_html = `
-    <html>
-      <head></head>
-      <body style="margin: 0; padding: 0;">
-        <table align="center" cellpadding="0" cellspacing="0" width="600">
-          <tr>
-            <td align="center" bgcolor="#47c6f3" style="padding: 40px 0 30px 0; font-family: Arial, sans-serif;">
-              <img src="${MissionLifeLogo}" alt="Welcome to Mission Life Change" width="425" height="82" style="display: block;" />
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
-              <table cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                  <td style="border-top: 1px solid #e3e6ea;">
-                    <h1 style="padding:30px 0px 0px 0px;text-align: center; font-family: Arial, sans-serif;">Welcome to<br>Mission Life Change</h1>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="text-align:center; border-bottom: 1px solid #e3e6ea;">
-                    <p style="text-align: center; font-family: Arial, sans-serif; font-size: 18px;">
-                      We've created a login with a temporary password for you.<br>
-                      Your username is <strong>${newUserEmail}</strong>.<br>
-                      And your temporary password is <strong>${newUserTempPassword}</strong><br>
-                      <a style="display:inline-block;margin:30px 0px;color:#ffffff;background: #63BC46;padding: 11px 38px 11px 38px;font-weight: bold;text-decoration: none;text-align: center;font-family: Arial, sans-serif;border-radius:3px;" href="${MissionLifeAppUrl}">
-                        Click here to login
-                      </a>
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#e54616" style="padding: 40px 30px 40px 30px;">
-              <table cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                  <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
-                    &reg; Mission Life Change 2020
-                  </td>
-                  <td align="right" width="25%">
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>  
-    </html>`;
+      <html>
+        <head></head>
+        <body 
+          style="margin: 0; padding: 0;"
+          >
+          <table 
+            align="center" 
+            cellpadding="0" 
+            cellspacing="0" 
+            width="600"
+            >
+            <tr>
+              <td
+                align="right"
+                bgcolor="transparent"
+                style="padding: 40px 0 0px 0; font-family: Arial, sans-serif;"
+              >
+                <img
+                  src="https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-world.original.png"
+                  alt="Welcome to Mission Life Change"
+                  width="82"
+                  height="82"
+                  style="display: block;"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td 
+                bgcolor="#ffffff" 
+                style="padding: 0px 30px 40px 30px;"
+                >
+                <table 
+                  cellpadding="0" 
+                  cellspacing="0" 
+                  width="100%"
+                  >
+                  <tr>
+                    <td>
+                      <h1
+                        style="padding:0; margin: 0;  text-align: center; font-family: Arial, sans-serif;"
+                        >
+                        Mission Life
+                      </h1>
+                      <p
+                        style="font-size: 18px;padding:0; margin: 0;text-align: center; font-family: Arial, sans-serif;"
+                        >
+                        #ChangeOne
+                      <p/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p
+                        style="font-size: 18px;padding:10px 0px 0px 0px; margin: 0;text-align: center; font-family: Arial, sans-serif;"
+                        >
+                        <span 
+                          style="font-weight: bold; color: #e34f26"
+                          >
+                            ${userFoundation}
+                        </span>
+                        | Thank you for your support
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td 
+                      style="text-align:center; border-bottom: 1px solid #e3e6ea;"
+                      >
+                      <p
+                        style="text-align: center; font-family: Arial, sans-serif; font-size: 18px;"
+                      >
+                        We've created a login with a temporary password for you.<br />
+                        Your username is <strong>${newUserEmail}</strong>.<br />
+                        And your temporary password is
+                        <strong>${newUserTempPassword}</strong><br />
+                        <a
+                          style="display:inline-block;margin:30px 0px;color:#e34f26;background: #FFFFFF; border: 3px solid #e34f26;padding: 11px 38px 11px 38px;font-weight: bold;text-decoration: none;text-align: center;font-family: Arial, sans-serif;border-radius:4px;"
+                          href="${MissionLifeAppUrl}"
+                        >
+                          Click here to login
+                        </a>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td
+                bgcolor="#62ba45"
+                style="text-align: center;padding: 40px 30px 40px 30px;"
+              >
+                <table 
+                  cellpadding="0" 
+                  cellspacing="0" 
+                  width="100%"
+                  >
+                  <tr>
+                    <td>
+                      <img
+                        src="https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-logo-menu-2.original.png"
+                        alt="Mission Life"
+                        width="313"
+                        height="61"
+                        style="display: block; margin: auto;"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;"
+                    >
+                      <p 
+                        style="font-weight: bold; color: #e34f26; font-size:24px;"
+                        >
+                        Contact Us
+                      </p>
+                      <p>(603) 233-3444</p>
+                      <p>admin@missionlifechange.org</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;"
+                    >
+                      <div>
+                        <a
+                          style="text-decoration:none"
+                          href="https://www.facebook.com/missionlifechange.org/"
+                        >
+                          <img
+                            src="https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_1_Facebook_colored_svg_copy_5296499.png"
+                            style="margin:0px 5px 0px 5px;display:inline-block;"
+                            width="36px"
+                          />
+                        </a>
+                        <a
+                          style="text-decoration:none"
+                          href="https://twitter.com/MissionLifeOne"
+                        >
+                          <img
+                            src="https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_Twitter_2062092.png"
+                            style="margin:0px 5px 0px 5px;display:inline-block;"
+                            width="36px"
+                          />
+                        </a>
+                        <a
+                          style="text-decoration:none"
+                          href="https://www.instagram.com/missionlifechange/"
+                        >
+                          <img
+                            src="https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_social-instagram-new-circle_1164349.png"
+                            style="margin:0px 5px 0px 5px;display:inline-block;"
+                            width="36px"
+                          />
+                        </a>
+                      </div>
+                      <p>Mission Life, P.0. Box 1771, Manchester, NH 03105</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `;
 
     // The character encoding for the email.
     const charset = "UTF-8";

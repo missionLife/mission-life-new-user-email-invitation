@@ -9,7 +9,7 @@ export default class SupporterSponsorship {
 
     this.supporterEmail = supporterEmail;
     this.sponsorshipId = sponsorshipId;
-
+    // TODO - Add Organization here
     Object.freeze(this);
   }
 }
