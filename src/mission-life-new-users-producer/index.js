@@ -26,7 +26,7 @@ async function processMessageBatch(messages) {
     const supporterSponsorship = new SupporterSponsorship(
       supporterSponsorshipMessage.email,
       supporterSponsorshipMessage.sponsorshipId,
-      supporterSponsorship.foundation
+      supporterSponsorshipMessage.foundation
     );
 
     batchPromises.push({
