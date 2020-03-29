@@ -238,7 +238,7 @@ async function sendNewUserEmail(newUsers) {
                         </span>
                       </p>
                       <p
-                        style="text-align:center;text-decoration:none;display:inline-block;"
+                        style="text-align:center;"
                         >
                         <span 
                           style="text-decoration:none;display:inline-block;"
