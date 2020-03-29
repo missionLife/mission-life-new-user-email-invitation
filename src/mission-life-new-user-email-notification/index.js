@@ -243,6 +243,7 @@ async function sendNewUserEmail(newUsers) {
                   <tr>
                     <td
                       style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;width: 100%;"
+                      align="center"
                     >
                       <a
                         style="text-decoration:none;display:inline-block;margin:auto;"
