@@ -43,7 +43,7 @@ async function createCognitoUsers(messages) {
           Value: temporaryPassword
         },
         {
-          Name: 'custom:user-foundation',
+          Name: 'custom:foundation',
           Value: newUser.foundation
         },
         {

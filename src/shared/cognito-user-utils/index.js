@@ -27,7 +27,7 @@ export function getUserTempPassword(attributes, username) {
 export function getUserFoundation(attributes, username) {
   for (let i = 0; i < attributes.length; i++) {
     const attributeObject = attributes[i];
-    if (attributeObject.Name === 'custom:user-foundation') {
+    if (attributeObject.Name === 'custom:foundation') {
       return attributeObject.Value;
     }
   }
