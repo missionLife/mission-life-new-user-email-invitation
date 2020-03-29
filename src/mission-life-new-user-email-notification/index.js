@@ -231,12 +231,20 @@ async function sendNewUserEmail(newUsers) {
                       <p
                         style="text-align:center;"
                         >
-                        (603) 233-3444
+                        <span 
+                          style="text-decoration:none;display:inline-block;"
+                          >
+                          (603) 233-3444
+                        </span>
                       </p>
                       <p
-                        style="text-align:center;text-decoration:none;"
+                        style="text-align:center;text-decoration:none;display:inline-block;"
                         >
-                        admin@missionlifechange.org
+                        <span 
+                          style="text-decoration:none;display:inline-block;"
+                          >
+                          admin@missionlifechange.org
+                        </span>
                       </p>
                     </td>
                   </tr>
