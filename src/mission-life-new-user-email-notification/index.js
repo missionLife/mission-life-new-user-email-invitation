@@ -246,7 +246,7 @@ async function sendNewUserEmail(newUsers) {
                       align="center"
                     >
                       <a
-                        style="text-decoration:none;display:inline-block;margin:auto;"
+                        style="text-decoration:none;display:inline-block;margin:20px auto 20px auto;"
                         href="https://www.facebook.com/missionlifechange.org/"
                       >
                         <img
@@ -256,7 +256,7 @@ async function sendNewUserEmail(newUsers) {
                         />
                       </a>
                       <a
-                        style="text-decoration:none;display:inline-block;margin:auto;"
+                        style="text-decoration:none;display:inline-block;margin:20px auto 20px auto;"
                         href="https://twitter.com/MissionLifeOne"
                       >
                         <img
@@ -266,7 +266,7 @@ async function sendNewUserEmail(newUsers) {
                         />
                       </a>
                       <a
-                        style="text-decoration:none;display:inline-block;margin:auto;"
+                        style="text-decoration:none;display:inline-block;margin:20px auto 20px auto;"
                         href="https://www.instagram.com/missionlifechange/"
                       >
                         <img
