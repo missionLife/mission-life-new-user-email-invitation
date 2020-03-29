@@ -245,7 +245,7 @@ async function sendNewUserEmail(newUsers) {
                       style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;width: 100%;"
                     >
                       <div
-                        style="width:100%;margin: 20px 0px 0px 0px;"
+                        style="width:100%;margin: 20px auto 0px auto;"
                         >
                         <a
                           style="text-decoration:none;display:inline-block;margin:auto;"
