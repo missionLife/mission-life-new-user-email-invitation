@@ -187,7 +187,7 @@ async function sendNewUserEmail(newUsers) {
                         And your temporary password is
                         <strong>${newUserTempPassword}</strong><br />
                         <a
-                          style="display:inline-block;margin:30px 0px;color:#e34f26;background: #FFFFFF; border: 3px solid #e34f26;padding: 11px 38px 11px 38px;font-weight: bold;text-decoration: none;text-align: center;font-family: Arial, sans-serif;border-radius:4px;"
+                          style="display:inline-block;margin:30px 0px;color:#e34f26;background: #FFFFFF; border: 3px solid #e34f26;padding: 11px 38px 11px 38px;font-weight: bold;text-align: center;font-family: Arial, sans-serif;border-radius:4px;text-decoration: none;"
                           href="${MissionLifeAppUrl}"
                         >
                           Click here to login
@@ -234,11 +234,13 @@ async function sendNewUserEmail(newUsers) {
                   </tr>
                   <tr>
                     <td
-                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;"
+                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;width: 100%;"
                     >
-                      <div>
+                      <div
+                        style="width:100%;"
+                        >
                         <a
-                          style="text-decoration:none"
+                          style="text-decoration:none;display:inline-block;"
                           href="https://www.facebook.com/missionlifechange.org/"
                         >
                           <img
@@ -248,7 +250,7 @@ async function sendNewUserEmail(newUsers) {
                           />
                         </a>
                         <a
-                          style="text-decoration:none"
+                          style="text-decoration:none;display:inline-block;"
                           href="https://twitter.com/MissionLifeOne"
                         >
                           <img
@@ -258,7 +260,7 @@ async function sendNewUserEmail(newUsers) {
                           />
                         </a>
                         <a
-                          style="text-decoration:none"
+                          style="text-decoration:none;display:inline-block;"
                           href="https://www.instagram.com/missionlifechange/"
                         >
                           <img
