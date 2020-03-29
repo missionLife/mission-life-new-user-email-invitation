@@ -244,40 +244,36 @@ async function sendNewUserEmail(newUsers) {
                     <td
                       style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;width: 100%;"
                     >
-                      <div
-                        style="width:100%;margin: 20px auto 0px auto;"
-                        >
-                        <a
-                          style="text-decoration:none;display:inline-block;margin:auto;"
-                          href="https://www.facebook.com/missionlifechange.org/"
-                        >
-                          <img
-                            src="${socialMediaIconFacebook}"
-                            style="margin:0px 5px 0px 5px;display:inline-block;"
-                            width="36px"
-                          />
-                        </a>
-                        <a
-                          style="text-decoration:none;display:inline-block;margin:auto;"
-                          href="https://twitter.com/MissionLifeOne"
-                        >
-                          <img
-                            src="${socialMediaIconTwitter}"
-                            style="margin:0px 5px 0px 5px;display:inline-block;"
-                            width="36px"
-                          />
-                        </a>
-                        <a
-                          style="text-decoration:none;display:inline-block;margin:auto;"
-                          href="https://www.instagram.com/missionlifechange/"
-                        >
-                          <img
-                            src="${socialMediaIconInstagram}"
-                            style="margin:0px 5px 0px 5px;display:inline-block;"
-                            width="36px"
-                          />
-                        </a>
-                      </div>
+                      <a
+                        style="text-decoration:none;display:inline-block;margin:auto;"
+                        href="https://www.facebook.com/missionlifechange.org/"
+                      >
+                        <img
+                          src="${socialMediaIconFacebook}"
+                          style="margin:5px 5px 5px 5px;display:inline-block;"
+                          width="36px"
+                        />
+                      </a>
+                      <a
+                        style="text-decoration:none;display:inline-block;margin:auto;"
+                        href="https://twitter.com/MissionLifeOne"
+                      >
+                        <img
+                          src="${socialMediaIconTwitter}"
+                          style="margin:5px 5px 5px 5px;display:inline-block;"
+                          width="36px"
+                        />
+                      </a>
+                      <a
+                        style="text-decoration:none;display:inline-block;margin:auto;"
+                        href="https://www.instagram.com/missionlifechange/"
+                      >
+                        <img
+                          src="${socialMediaIconInstagram}"
+                          style="margin:5px 5px 5px 5px;display:inline-block;"
+                          width="36px"
+                        />
+                      </a>
                       <p
                         style="text-align:center;"
                         >
