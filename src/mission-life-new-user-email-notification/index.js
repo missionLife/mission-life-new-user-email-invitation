@@ -8,10 +8,16 @@ import * as CognitoUserUtils from './shared/cognito-user-utils';
 AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
 
-const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 const ses = new AWS.SES({
   region: 'us-east-1'
 });
+const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+const MissionLifeLogo = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-logo-menu-2.original.png';
+const MissionLifeWorldLogo = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-world.original.png';
+const MissionLifeAppUrl = 'https://d1s3z7p9p47ieq.cloudfront.net/';
+const socialMediaIconFacebook = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_1_Facebook_colored_svg_copy_5296499.png';
+const socialMediaIconInstagram = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_social-instagram-new-circle_1164349.png';
+const socialMediaIconTwitter = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_Twitter_2062092.png';
 
 async function createCognitoUsers(messages) {
   const batchPromises = [];
@@ -102,9 +108,6 @@ async function sendNewUserEmail(newUsers) {
       "We've created a login with a temporary password for you. ";
       `Your username is ${newUserEmail}. `;
       `And your temporary password is ${newUserTempPassword}`;
-    
-    const MissionLifeLogo = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-logo-menu-2.original.png';
-    const MissionLifeAppUrl = 'https://d1s3z7p9p47ieq.cloudfront.net/';
 
     // The HTML body of the email.
     const body_html = `
@@ -126,7 +129,7 @@ async function sendNewUserEmail(newUsers) {
                 style="padding: 40px 0 0px 0; font-family: Arial, sans-serif;"
               >
                 <img
-                  src="https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-world.original.png"
+                  src="${MissionLifeWorldLogo}"
                   alt="Welcome to Mission Life Change"
                   width="82"
                   height="82"
@@ -166,7 +169,7 @@ async function sendNewUserEmail(newUsers) {
                         <span 
                           style="font-weight: bold; color: #e34f26"
                           >
-                            ${userFoundation}
+                            ${newUserFoundation}
                         </span>
                         | Thank you for your support
                       </p>
@@ -208,7 +211,7 @@ async function sendNewUserEmail(newUsers) {
                   <tr>
                     <td>
                       <img
-                        src="https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-logo-menu-2.original.png"
+                        src="${MissionLifeLogo}"
                         alt="Mission Life"
                         width="313"
                         height="61"
@@ -239,7 +242,7 @@ async function sendNewUserEmail(newUsers) {
                           href="https://www.facebook.com/missionlifechange.org/"
                         >
                           <img
-                            src="https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_1_Facebook_colored_svg_copy_5296499.png"
+                            src="${socialMediaIconFacebook}"
                             style="margin:0px 5px 0px 5px;display:inline-block;"
                             width="36px"
                           />
@@ -249,7 +252,7 @@ async function sendNewUserEmail(newUsers) {
                           href="https://twitter.com/MissionLifeOne"
                         >
                           <img
-                            src="https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_Twitter_2062092.png"
+                            src="${socialMediaIconTwitter}"
                             style="margin:0px 5px 0px 5px;display:inline-block;"
                             width="36px"
                           />
@@ -259,7 +262,7 @@ async function sendNewUserEmail(newUsers) {
                           href="https://www.instagram.com/missionlifechange/"
                         >
                           <img
-                            src="https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_social-instagram-new-circle_1164349.png"
+                            src="${socialMediaIconInstagram}"
                             style="margin:0px 5px 0px 5px;display:inline-block;"
                             width="36px"
                           />
