@@ -221,15 +221,23 @@ async function sendNewUserEmail(newUsers) {
                   </tr>
                   <tr>
                     <td
-                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;"
+                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;margin:10px;"
                     >
                       <p 
-                        style="font-weight: bold; color: #e34f26; font-size:24px;"
+                        style="font-weight: bold; color: #e34f26; font-size:24px;text-align:center;"
                         >
                         Contact Us
                       </p>
-                      <p>(603) 233-3444</p>
-                      <p>admin@missionlifechange.org</p>
+                      <p
+                        style="text-align:center;"
+                        >
+                        (603) 233-3444
+                      </p>
+                      <p
+                        style="text-align:center;text-decoration:none;"
+                        >
+                        admin@missionlifechange.org
+                      </p>
                     </td>
                   </tr>
                   <tr>
@@ -237,7 +245,7 @@ async function sendNewUserEmail(newUsers) {
                       style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;width: 100%;"
                     >
                       <div
-                        style="width:100%;"
+                        style="width:100%;margin: 20px 0px 0px 0px;"
                         >
                         <a
                           style="text-decoration:none;display:inline-block;"
