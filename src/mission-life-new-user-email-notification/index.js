@@ -221,7 +221,7 @@ async function sendNewUserEmail(newUsers) {
                   </tr>
                   <tr>
                     <td
-                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;margin:10px;"
+                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;margin:25px;"
                     >
                       <p 
                         style="font-weight: bold; color: #e34f26; font-size:24px;text-align:center;"
@@ -248,7 +248,7 @@ async function sendNewUserEmail(newUsers) {
                         style="width:100%;margin: 20px 0px 0px 0px;"
                         >
                         <a
-                          style="text-decoration:none;display:inline-block;"
+                          style="text-decoration:none;display:inline-block;margin:auto;"
                           href="https://www.facebook.com/missionlifechange.org/"
                         >
                           <img
@@ -258,7 +258,7 @@ async function sendNewUserEmail(newUsers) {
                           />
                         </a>
                         <a
-                          style="text-decoration:none;display:inline-block;"
+                          style="text-decoration:none;display:inline-block;margin:auto;"
                           href="https://twitter.com/MissionLifeOne"
                         >
                           <img
@@ -268,7 +268,7 @@ async function sendNewUserEmail(newUsers) {
                           />
                         </a>
                         <a
-                          style="text-decoration:none;display:inline-block;"
+                          style="text-decoration:none;display:inline-block;margin:auto;"
                           href="https://www.instagram.com/missionlifechange/"
                         >
                           <img
@@ -278,7 +278,11 @@ async function sendNewUserEmail(newUsers) {
                           />
                         </a>
                       </div>
-                      <p>Mission Life, P.0. Box 1771, Manchester, NH 03105</p>
+                      <p
+                        style="text-align:center;"
+                        >
+                        Mission Life, P.0. Box 1771, Manchester, NH 03105
+                      </p>
                     </td>
                   </tr>
                 </table>
