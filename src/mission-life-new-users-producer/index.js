@@ -23,15 +23,17 @@ async function processMessageBatch(messages) {
   for (let i = 0; i < messages.length; i++) {
     const supporterSponsorshipMessage = JSON.parse(messages[i].body);
     
-    const supporterSponsorship = new SupporterSponsorship(
-      supporterSponsorshipMessage.email,
-      supporterSponsorshipMessage.sponsorshipId,
-      supporterSponsorshipMessage.foundation
-    );
+    const supporterSponsorship = new SupporterSponsorship({
+      supporterEmail: supporterSponsorshipMessage.email,
+      supporterName: supporterSponsorshipMessage.name,
+      sponsorshipId: supporterSponsorshipMessage.sponsorshipId,
+      foundation: supporterSponsorshipMessage.foundation
+    });
 
     batchPromises.push({
       exists: await missionLifeUsersDataRepo.checkIfUserExists(supporterSponsorship),
       email: supporterSponsorship.supporterEmail,
+      name: supporterSponsorship.supporterName,
       sponsorshipId: supporterSponsorship.sponsorshipId,
       foundation: supporterSponsorship.foundation
     });
@@ -53,7 +55,7 @@ async function publishNewUsers(allCheckedUsers) {
   }
   
   if (newUsers.length > 0) {
-    await missionLifeUsersDataRepo.addNewUsers(newUsers);
+    await missionLifeUsersDataRepo.addNewUsers(allCheckedUsers);
     return missionLifeNewUsers.publishNewUsers(newUsers);
   } else {
     return null;

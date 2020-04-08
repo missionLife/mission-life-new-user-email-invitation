@@ -14,12 +14,14 @@ export default class MissionLifeUsersDataRepo {
 
     const params = {
       TableName: 'MISSION_LIFE_USERS',
-      KeyConditionExpression: '#email = :e',
+      KeyConditionExpression: '#email = :e AND #sponsorshipId = :s',
       ExpressionAttributeNames: {
-        '#email': 'EMAIL'
+        '#email': 'EMAIL',
+        '#sponsorshipId': 'SPONSORSHIP_ID'
       },
       ExpressionAttributeValues: {
-        ':e': `${supporterSponsorship.supporterEmail}`
+        ':e': `${supporterSponsorship.supporterEmail}`,
+        ':s': `${supporterSponsorship.sponsorshipId}`
       },
       Select: 'COUNT'
     };
@@ -38,6 +40,7 @@ export default class MissionLifeUsersDataRepo {
         TableName: 'MISSION_LIFE_USERS',
         Item: {
           EMAIL: newUser.email,
+          NAME: newUser.name,
           SPONSORSHIP_ID: newUser.sponsorshipId,
           FOUNDATION: newUser.foundation
         }

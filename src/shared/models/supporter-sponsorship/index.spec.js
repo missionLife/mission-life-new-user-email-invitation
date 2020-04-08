@@ -6,44 +6,83 @@ describe('Supporter Sponsorship', () => {
   });
 
   describe('constructor', () => {
+
+    let options;
+
+    beforeEach(() => {
+      options = {
+        supporterEmail: 'aSupporterEmail@email.com',
+        supporterName: 'aSupporterName',
+        sponsorshipId: 123,
+        foundation: 'aFoundation'
+      }
+    })
     it('should throw if supporterEmail is not a string', () => {
-      expect(() => new SupporterSponsorship(null, 123, 'aFoundation')).toThrowError(/supporterEmail/);
+      options.supporterEmail = null;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterEmail/);
     });
     it('should throw if supporterEmail is not a string', () => {
-      expect(() => new SupporterSponsorship(undefined, 123, 'aFoundation')).toThrowError(/supporterEmail/);
+      options.supporterEmail = undefined;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterEmail/);
     });
     it('should throw if supporterEmail is not a string', () => {
-      expect(() => new SupporterSponsorship(12345, 123, 'aFoundation')).toThrowError(/supporterEmail/);
+      options.supporterEmail = 12345;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterEmail/);
     });
     it('should throw if supporterEmail is not a string', () => {
-      expect(() => new SupporterSponsorship([], 123, 'aFoundation')).toThrowError(/supporterEmail/);
+      options.supporterEmail = [];
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterEmail/);
+    });
+
+    it('should throw if supporterName is not a string', () => {
+      options.supporterName = null;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterName/);
+    });
+    it('should throw if supporterName is not a string', () => {
+      options.supporterName = undefined;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterName/);
+    });
+    it('should throw if supporterName is not a string', () => {
+      options.supporterName = 12345;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterName/);
+    });
+    it('should throw if supporterName is not a string', () => {
+      options.supporterName = [];
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterName/);
     });
 
     it('should throw if sponsorshipId is not a number', () => {
-      expect(() => new SupporterSponsorship('aUserEmail@email.com', 'notAnId', 'aFoundation')).toThrowError(/supporterEmail/);
+      options.sponsorshipId = 'notAnId';
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterEmail/);
     });
     it('should throw if sponsorshipId is not a number', () => {
-      expect(() => new SupporterSponsorship('aUserEmail@email.com', [], 'aFoundation')).toThrowError(/supporterEmail/);
+      options.sponsorshipId = [];
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterEmail/);
     });
     it('should throw if sponsorshipId is not a number', () => {
-      expect(() => new SupporterSponsorship('aUserEmail@email.com', true, 'aFoundation')).toThrowError(/supporterEmail/);
+      options.sponsorshipId = true;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/supporterEmail/);
     });
 
     it('should throw if foundation is not a string', () => {
-      expect(() => new SupporterSponsorship('aString', 123, null)).toThrowError(/foundation/);
+      options.foundation = null;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/foundation/);
     });
     it('should throw if foundation is not a string', () => {
-      expect(() => new SupporterSponsorship('aString', 123, 12314)).toThrowError(/foundation/);
+      options.foundation = 12343;
+      expect(() => new SupporterSponsorship(options)).toThrowError(/foundation/);
     });
     it('should throw if foundation is not a string', () => {
-      expect(() => new SupporterSponsorship('aString', 123, [])).toThrowError(/foundation/);
+      options.foundation = [];
+      expect(() => new SupporterSponsorship(options)).toThrowError(/foundation/);
     });
     it('should throw if foundation is not a string', () => {
-      expect(() => new SupporterSponsorship('aString', 123, {})).toThrowError(/foundation/);
+      options.foundation = {};
+      expect(() => new SupporterSponsorship(options)).toThrowError(/foundation/);
     });
 
     it('should have properties that are frozen', () => {
-      const supporterSponsorship = new SupporterSponsorship('aUserEmail@email.com', 123, 'aFoundation');
+      const supporterSponsorship = new SupporterSponsorship(options);
 
       expect(() => supporterSponsorship.supporterEmail = 'aSecondUserEmail@email.com').toThrowError(/supporterEmail/);
     });

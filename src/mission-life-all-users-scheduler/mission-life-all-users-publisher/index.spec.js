@@ -35,16 +35,18 @@ describe('MissionLifeAllUsersPublisher', () => {
 
   describe('publishSupporterSponsorships', () => {
     let supporterSponsorships = [
-      new SupporterSponsorship(
-        'aUserEmail@email.com',
-        123,
-        'aFoundation'
-      ),
-      new SupporterSponsorship(
-        'aUserEmail2@email.com',
-        456,
-        'aFoundation'
-      )
+      new SupporterSponsorship({
+        supporterEmail: 'aSupporterEmail@email.com',
+        supporterName: 'aSupporterName',
+        sponsorshipId: 123,
+        foundation: 'aFoundation'
+      }),
+      new SupporterSponsorship({
+        supporterEmail: 'aSupporterEmail2@email.com',
+        supporterName: 'aSupporterName',
+        sponsorshipId: 456,
+        foundation: 'aFoundation'
+      })
     ];
 
     it('should publish supporter sponsorships to SQS', async () => {

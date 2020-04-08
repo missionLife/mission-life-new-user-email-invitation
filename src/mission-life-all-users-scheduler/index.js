@@ -26,11 +26,12 @@ async function getUsers(event, context) {
     for (let supporterData of supporters) {
       console.log('####### THE SUPPORTER DATA WITH SPONSORSHIP ######## - ', supporterData);
       supporterSponsorships.push(
-        new SupporterSponsorship(
-          supporterData.supporter.email,
-          sponsorship.id,
-          supporterData.sponsorship.place.title
-        )
+        new SupporterSponsorship({
+          supporterEmail: supporterData.supporter.email,
+          supporterName: supporterData.supporter.name,
+          sponsorshipId: sponsorship.id,
+          foundation: supporterData.sponsorship.place.title
+        })
       );
     }
   }

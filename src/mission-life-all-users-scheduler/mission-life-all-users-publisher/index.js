@@ -31,6 +31,7 @@ export default class MissionLifeAllUsersPublisher {
     for (const supporterSponsorship of supporterSponsorships) {
       const message = {
         email: supporterSponsorship.supporterEmail,
+        name: supporterSponsorship.supporterName,
         sponsorshipId: supporterSponsorship.sponsorshipId,
         foundation: supporterSponsorship.foundation
       };

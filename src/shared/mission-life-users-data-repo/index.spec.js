@@ -11,7 +11,12 @@ describe("Mission Life Users Data Repo", () => {
 
   beforeEach(() => {
     documentClientSpy = jasmine.createSpyObj("documentClientSpy", ["query"]);
-    supporterSponsorship = new SupporterSponsorship("aUser@email.com", 123, 'aFoundation');
+    supporterSponsorship = new SupporterSponsorship({
+      supporterEmail: 'aSupporterEmail@email.com',
+      supporterName: 'aSupporterName',
+      sponsorshipId: 123,
+      foundation: 'aFoundation'
+    });
   });
 
   describe("checkIfUserExists", () => {
