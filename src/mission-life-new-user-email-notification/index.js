@@ -120,7 +120,7 @@ async function sendNewUserEmail(newUsers) {
                 <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td>
-                      <h1 style="text-align: center; font-family: Arial, sans-serif;">
+                      <h1 style="margin-top: 30px;text-align: center; font-family: Arial, sans-serif;">
                         Mission Life’s Video Messaging Web-App
                       </h1>
                     </td>
