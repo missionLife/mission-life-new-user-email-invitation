@@ -129,11 +129,13 @@ async function sendNewUserEmail(newUsers) {
                     <td>
                       <p
                         style="
-                          font-size: 18px;
+                          font-size: 24px;
                           font-style: italic;
                           font-weight: regular;
                           text-align: center;
                           font-family: Arial, sans-serif;
+                          margin-top: 30px;
+                          margin-bottom: 15px;
                         "
                       >
                         We believe that relationships have the power to influence
@@ -149,6 +151,8 @@ async function sendNewUserEmail(newUsers) {
                           font-weight: regular;
                           text-align: center;
                           font-family: Arial, sans-serif;
+                          margin-top: 15px;
+                          margin-bottom: 15px;
                         "
                       >
                         You can build a life changing relationship. Here’s how...
@@ -162,6 +166,8 @@ async function sendNewUserEmail(newUsers) {
                           font-size: 18px;
                           text-align: center;
                           font-family: Arial, sans-serif;
+                          margin-top: 15px;
+                          margin-bottom: 15px;
                         "
                       >
                         We are excited to share a new, interactive tool with you that
@@ -179,6 +185,8 @@ async function sendNewUserEmail(newUsers) {
                           font-size: 18px;
                           text-align: center;
                           font-family: Arial, sans-serif;
+                          margin-top: 15px;
+                          margin-bottom: 15px;
                         "
                       >
                         Right now our video messaging web APP allows you to send
@@ -195,6 +203,8 @@ async function sendNewUserEmail(newUsers) {
                           font-size: 18px;
                           text-align: center;
                           font-family: Arial, sans-serif;
+                          margin-top: 15px;
+                          margin-bottom: 15px;
                         "
                       >
                         Take the first steps...
