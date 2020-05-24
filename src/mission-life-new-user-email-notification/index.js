@@ -129,7 +129,7 @@ async function sendNewUserEmail(newUsers) {
                     <td>
                       <p
                         style="
-                          font-size: 24px;
+                          font-size: 20px;
                           font-style: italic;
                           font-weight: regular;
                           text-align: center;
