@@ -116,33 +116,11 @@ async function sendNewUserEmail(newUsers) {
         <body style="margin: 0; padding: 0;">
           <table align="center" cellpadding="0" cellspacing="0" width="600">
             <tr>
-              <td
-                align="right"
-                bgcolor="transparent"
-                style="padding: 40px 0 0px 0; font-family: Arial, sans-serif;"
-              >
-                <img
-                  src="${MissionLifeWorldLogo}"
-                  alt="Welcome to Mission Life Change"
-                  width="82"
-                  height="82"
-                  style="display: block;"
-                />
-              </td>
-            </tr>
-            <tr>
               <td bgcolor="#ffffff" style="padding: 0px 30px 40px 30px;">
                 <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td>
-                      <h1
-                        style="
-                          padding: 0;
-                          margin: 0;
-                          text-align: center;
-                          font-family: Arial, sans-serif;
-                        "
-                      >
+                      <h1 style="text-align: center; font-family: Arial, sans-serif;">
                         Mission Life’s Video Messaging Web-App
                       </h1>
                     </td>
@@ -151,7 +129,6 @@ async function sendNewUserEmail(newUsers) {
                     <td>
                       <p
                         style="
-                          padding: 0;
                           font-size: 18px;
                           font-style: italic;
                           font-weight: regular;
@@ -168,7 +145,6 @@ async function sendNewUserEmail(newUsers) {
                     <td>
                       <p
                         style="
-                          padding: 0;
                           font-size: 18px;
                           font-weight: regular;
                           text-align: center;
@@ -184,8 +160,6 @@ async function sendNewUserEmail(newUsers) {
                       <p
                         style="
                           font-size: 18px;
-                          padding: 10px 0px 0px 0px;
-                          margin: 0;
                           text-align: center;
                           font-family: Arial, sans-serif;
                         "
@@ -203,8 +177,6 @@ async function sendNewUserEmail(newUsers) {
                       <p
                         style="
                           font-size: 18px;
-                          padding: 10px 0px 0px 0px;
-                          margin: 0;
                           text-align: center;
                           font-family: Arial, sans-serif;
                         "
@@ -221,8 +193,6 @@ async function sendNewUserEmail(newUsers) {
                       <p
                         style="
                           font-size: 18px;
-                          padding: 10px 0px 0px 0px;
-                          margin: 0;
                           text-align: center;
                           font-family: Arial, sans-serif;
                         "
@@ -389,7 +359,7 @@ async function sendNewUserEmail(newUsers) {
             </tr>
           </table>
         </body>
-      </html>
+      </html>  
     `;
 
     // The character encoding for the email.
