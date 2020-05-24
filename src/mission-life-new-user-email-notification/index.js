@@ -99,7 +99,7 @@ async function sendNewUserEmail(newUsers) {
     const recipient = `<${newUserEmail}>`;
 
     // The subject line for the email.
-    const subject = "Welcome to Mission Life";
+    const subject = "Your Sponsored Child is Ready to Connect";
 
     // The email body for recipients with non-HTML email clients.
     const body_text =
@@ -113,15 +113,8 @@ async function sendNewUserEmail(newUsers) {
     const body_html = `
       <html>
         <head></head>
-        <body 
-          style="margin: 0; padding: 0;"
-          >
-          <table 
-            align="center" 
-            cellpadding="0" 
-            cellspacing="0" 
-            width="600"
-            >
+        <body style="margin: 0; padding: 0;">
+          <table align="center" cellpadding="0" cellspacing="0" width="600">
             <tr>
               <td
                 align="right"
@@ -138,59 +131,147 @@ async function sendNewUserEmail(newUsers) {
               </td>
             </tr>
             <tr>
-              <td 
-                bgcolor="#ffffff" 
-                style="padding: 0px 30px 40px 30px;"
-                >
-                <table 
-                  cellpadding="0" 
-                  cellspacing="0" 
-                  width="100%"
-                  >
+              <td bgcolor="#ffffff" style="padding: 0px 30px 40px 30px;">
+                <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td>
                       <h1
-                        style="padding:0; margin: 0;  text-align: center; font-family: Arial, sans-serif;"
-                        >
-                        Mission Life
+                        style="
+                          padding: 0;
+                          margin: 0;
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                        "
+                      >
+                        Mission Life’s Video Messaging Web-App
                       </h1>
-                      <p
-                        style="font-size: 18px;padding:0; margin: 0;text-align: center; font-family: Arial, sans-serif;"
-                        >
-                        #ChangeOne
-                      <p/>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <p
-                        style="font-size: 18px;padding:10px 0px 0px 0px; margin: 0;text-align: center; font-family: Arial, sans-serif;"
-                        >
-                        <span 
-                          style="font-weight: bold; color: #e34f26"
-                          >
-                            ${newUserFoundation}
-                        </span>
-                        | Thank you for your support
+                        style="
+                          padding: 0;
+                          font-size: 18px;
+                          font-style: italic;
+                          font-weight: regular;
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                        "
+                      >
+                        We believe that relationships have the power to influence
+                        change.
                       </p>
                     </td>
                   </tr>
                   <tr>
-                    <td 
-                      style="text-align:center; border-bottom: 1px solid #e3e6ea;"
-                      >
+                    <td>
                       <p
-                        style="text-align: center; font-family: Arial, sans-serif; font-size: 18px;"
+                        style="
+                          padding: 0;
+                          font-size: 18px;
+                          font-weight: regular;
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                        "
+                      >
+                        You can build a life changing relationship. Here’s how...
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p
+                        style="
+                          font-size: 18px;
+                          padding: 10px 0px 0px 0px;
+                          margin: 0;
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                        "
+                      >
+                        We are excited to share a new, interactive tool with you that
+                        will make it easy for you and your family to connect with your
+                        child to develop a meaningful relationship!Imagine the stories
+                        you can share with each other and the ripple effect it will
+                        have on all of your lives.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p
+                        style="
+                          font-size: 18px;
+                          padding: 10px 0px 0px 0px;
+                          margin: 0;
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                        "
+                      >
+                        Right now our video messaging web APP allows you to send
+                        videos right from your phone to your child. This is a great
+                        opportunity for you to include your family in this experience
+                        and join you in your videos!
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p
+                        style="
+                          font-size: 18px;
+                          padding: 10px 0px 0px 0px;
+                          margin: 0;
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                        "
+                      >
+                        Take the first steps...
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center; border-bottom: 1px solid #e3e6ea;">
+                      <p
+                        style="
+                          text-align: left;
+                          font-family: Arial, sans-serif;
+                          font-size: 18px;
+                          font-weight: bold;
+                        "
+                      >
+                        Login Instructions:
+                      </p>
+                      <p
+                        style="
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                          font-size: 16px;
+                        "
                       >
                         We've created a login with a temporary password for you.<br />
                         Your username is <strong>${newUserEmail}</strong>.<br />
                         And your temporary password is
                         <strong>${newUserTempPassword}</strong><br />
                         <a
-                          style="display:inline-block;margin:30px 0px;color:#e34f26;background: #FFFFFF; border: 3px solid #e34f26;padding: 11px 38px 11px 38px;font-weight: bold;text-align: center;font-family: Arial, sans-serif;border-radius:4px;text-decoration: none;"
+                          style="
+                            display: inline-block;
+                            margin: 30px 0px;
+                            color: black;
+                            background: #e34f26;
+                            border: 3px solid #e34f26;
+                            padding: 7px 38px 7px 38px;
+                            font-weight: bold;
+                            text-align: center;
+                            font-family: Arial, sans-serif;
+                            border-radius: 4px;
+                            text-decoration: none;
+                            font-size: 24px;
+                          "
                           href="${MissionLifeAppUrl}"
                         >
-                          Click here to login
+                          Login
                         </a>
                       </p>
                     </td>
@@ -201,13 +282,9 @@ async function sendNewUserEmail(newUsers) {
             <tr>
               <td
                 bgcolor="#62ba45"
-                style="text-align: center;padding: 40px 30px 40px 30px;"
+                style="text-align: center; padding: 40px 30px 40px 30px;"
               >
-                <table 
-                  cellpadding="0" 
-                  cellspacing="0" 
-                  width="100%"
-                  >
+                <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td>
                       <img
@@ -221,28 +298,30 @@ async function sendNewUserEmail(newUsers) {
                   </tr>
                   <tr>
                     <td
-                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;margin:25px;"
+                      style="
+                        color: #ffffff;
+                        font-family: Arial, sans-serif;
+                        font-size: 16px;
+                        margin: 25px;
+                      "
                     >
-                      <p 
-                        style="font-weight: bold; color: #e34f26; font-size:24px;text-align:center;"
-                        >
+                      <p
+                        style="
+                          font-weight: bold;
+                          color: #e34f26;
+                          font-size: 24px;
+                          text-align: center;
+                        "
+                      >
                         Contact Us
                       </p>
-                      <p
-                        style="text-align:center;"
-                        >
-                        <span 
-                          style="text-decoration:none;display:inline-block;"
-                          >
+                      <p style="text-align: center;">
+                        <span style="text-decoration: none; display: inline-block;">
                           (603) 233-3444
                         </span>
                       </p>
-                      <p
-                        style="text-align:center;"
-                        >
-                        <span 
-                          style="text-decoration:none;display:inline-block;"
-                          >
+                      <p style="text-align: center;">
+                        <span style="text-decoration: none; display: inline-block;">
                           admin@missionlifechange.org
                         </span>
                       </p>
@@ -250,42 +329,57 @@ async function sendNewUserEmail(newUsers) {
                   </tr>
                   <tr>
                     <td
-                      style="color: #ffffff;font-family: Arial, sans-serif; font-size: 16px;width: 100%;"
+                      style="
+                        color: #ffffff;
+                        font-family: Arial, sans-serif;
+                        font-size: 16px;
+                        width: 100%;
+                      "
                       align="center"
                     >
                       <a
-                        style="text-decoration:none;display:inline-block;margin:20px auto 20px auto;"
+                        style="
+                          text-decoration: none;
+                          display: inline-block;
+                          margin: 20px auto 20px auto;
+                        "
                         href="https://www.facebook.com/missionlifechange.org/"
                       >
                         <img
                           src="${socialMediaIconFacebook}"
-                          style="margin:5px 5px 5px 5px;display:inline-block;"
+                          style="margin: 5px 5px 5px 5px; display: inline-block;"
                           width="36px"
                         />
                       </a>
                       <a
-                        style="text-decoration:none;display:inline-block;margin:20px auto 20px auto;"
+                        style="
+                          text-decoration: none;
+                          display: inline-block;
+                          margin: 20px auto 20px auto;
+                        "
                         href="https://twitter.com/MissionLifeOne"
                       >
                         <img
                           src="${socialMediaIconTwitter}"
-                          style="margin:5px 5px 5px 5px;display:inline-block;"
+                          style="margin: 5px 5px 5px 5px; display: inline-block;"
                           width="36px"
                         />
                       </a>
                       <a
-                        style="text-decoration:none;display:inline-block;margin:20px auto 20px auto;"
+                        style="
+                          text-decoration: none;
+                          display: inline-block;
+                          margin: 20px auto 20px auto;
+                        "
                         href="https://www.instagram.com/missionlifechange/"
                       >
                         <img
                           src="${socialMediaIconInstagram}"
-                          style="margin:5px 5px 5px 5px;display:inline-block;"
+                          style="margin: 5px 5px 5px 5px; display: inline-block;"
                           width="36px"
                         />
                       </a>
-                      <p
-                        style="text-align:center;"
-                        >
+                      <p style="text-align: center;">
                         Mission Life, P.0. Box 1771, Manchester, NH 03105
                       </p>
                     </td>
