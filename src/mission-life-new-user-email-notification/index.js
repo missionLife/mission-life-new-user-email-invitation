@@ -13,7 +13,7 @@ const ses = new AWS.SES({
 });
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 const MissionLifeLogo = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-logo-menu-2.original.png';
-const MissionLifeAppUrl = 'https://d1s3z7p9p47ieq.cloudfront.net/';
+const MissionLifeAppUrl = 'https://app.missionlifechange.org/';
 const socialMediaIconFacebook = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_1_Facebook_colored_svg_copy_5296499.png';
 const socialMediaIconInstagram = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_social-instagram-new-circle_1164349.png';
 const socialMediaIconTwitter = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_Twitter_2062092.png';
