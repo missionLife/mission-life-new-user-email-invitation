@@ -13,7 +13,6 @@ const ses = new AWS.SES({
 });
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 const MissionLifeLogo = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-logo-menu-2.original.png';
-const MissionLifeWorldLogo = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/ml-world.original.png';
 const MissionLifeAppUrl = 'https://d1s3z7p9p47ieq.cloudfront.net/';
 const socialMediaIconFacebook = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_1_Facebook_colored_svg_copy_5296499.png';
 const socialMediaIconInstagram = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_social-instagram-new-circle_1164349.png';
@@ -49,10 +48,6 @@ async function createCognitoUsers(messages) {
           Value: temporaryPassword
         },
         {
-          Name: 'custom:foundation',
-          Value: newUser.foundation
-        },
-        {
           Name: 'email_verified',
           Value: 'true'
         }
@@ -85,10 +80,6 @@ async function sendNewUserEmail(newUsers) {
       newUser.User.Attributes,
       newUser.User.Username
     );
-    const newUserFoundation = CognitoUserUtils.getUserFoundation(
-      newUser.User.Attributes,
-      newUser.User.Username
-    )
     console.log('NEW USER EMAIL: ', newUserEmail);
     // Replace sender@example.com with your "From" address.
     // This address must be verified with Amazon SES.
@@ -172,7 +163,7 @@ async function sendNewUserEmail(newUsers) {
                       >
                         We are excited to share a new, interactive tool with you that
                         will make it easy for you and your family to connect with your
-                        child to develop a meaningful relationship!Imagine the stories
+                        child to develop a meaningful relationship!  Imagine the stories
                         you can share with each other and the ripple effect it will
                         have on all of your lives.
                       </p>
@@ -190,7 +181,7 @@ async function sendNewUserEmail(newUsers) {
                         "
                       >
                         Right now our video messaging web APP allows you to send
-                        videos right from your phone to your child. This is a great
+                        videos right from your phone to your child.  This is a great
                         opportunity for you to include your family in this experience
                         and join you in your videos!
                       </p>

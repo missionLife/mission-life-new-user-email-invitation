@@ -9,7 +9,7 @@ export default class NewUser {
     if (!newUser.sponsorshipId || typeof newUser.sponsorshipId !== 'number') {
       throw new TypeError(`newUser.sponsorshipId must be a number. Value provided ${newUser.sponsorshipId}`);
     }
-    if (!newUser.foundation || typeof newUser.foundation !== 'string') {
+    if (newUser.foundation && typeof newUser.foundation !== 'string') {
       throw new TypeError(`newUser.foundation must be a string. Value provided ${newUser.foundation}`);
     }
 
