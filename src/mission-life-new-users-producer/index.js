@@ -29,7 +29,7 @@ async function processMessageBatch(messages) {
       sponsorshipId: supporterSponsorshipMessage.sponsorshipId,
       foundation: supporterSponsorshipMessage.foundation
     });
-
+    console.log('########## supporterSponsorship', supporterSponsorship)
     batchPromises.push({
       exists: await missionLifeUsersDataRepo.checkIfUserExists(supporterSponsorship),
       email: supporterSponsorship.supporterEmail,

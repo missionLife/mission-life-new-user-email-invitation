@@ -39,12 +39,14 @@ export default class MissionLifeUsersDataRepo {
       let putItemParams = {
         TableName: 'MISSION_LIFE_USERS',
         Item: {
-          EMAIL: newUser.email,
-          NAME: newUser.name,
-          SPONSORSHIP_ID: newUser.sponsorshipId,
-          FOUNDATION: newUser.foundation
+          'EMAIL': newUser.email,
+          'NAME': newUser.name,
+          'SPONSORSHIP_ID': newUser.sponsorshipId,
+          'FOUNDATION': newUser.foundation
         }
       }
+
+
 
       putItemPromises.push(this.documentClient.put(putItemParams).promise());
     }
