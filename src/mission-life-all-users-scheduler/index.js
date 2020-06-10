@@ -5,7 +5,6 @@ import ReachService from './shared/reach-service';
 import SQS from './shared/sqs';
 
 const betaUserEmails = {
-  'lbeachy@tds.net': true,
   'pcarrollnh@gmail.com': true,
   'angel.galvis@missionlifechange.org': true,
   'ryanjgetchell@gmail.com': true,
@@ -14,8 +13,8 @@ const betaUserEmails = {
   'evan_jill@yahoo.com': true,
   'm_mercer@hotmail.com': true,
   '15gile@gmail.com': true,
-  'Jenn_oneill1@comcast.net': true,
-  'stephanie.plumlee@comcast.net': true,
+  'jenn_oneill1@comcast.net': true,
+  'chris@mattplumlee.org': true,
   'cristianrios222@hotmail.com': true,
   'hnvrios@gmail.com': true,
   'lisa.applewood@gmail.com': true,
