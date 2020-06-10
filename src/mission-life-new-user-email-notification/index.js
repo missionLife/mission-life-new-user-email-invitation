@@ -19,7 +19,7 @@ const socialMediaIconInstagram = 'https://mission-life-assets.s3.us-east-2.amazo
 const socialMediaIconTwitter = 'https://mission-life-assets.s3.us-east-2.amazonaws.com/iconfinder_Twitter_2062092.png';
 
 async function createCognitoUsers(messages) {
-  const batchPromises = [];
+  const newUsers = [];
 
   for (let i = 0; i < messages.length; i++) {
     const newUser = new NewUser(JSON.parse(messages[i].body));
@@ -55,12 +55,15 @@ async function createCognitoUsers(messages) {
       ]
     };
 
-    batchPromises.push(
-      cognitoidentityserviceprovider.adminCreateUser(params).promise()
-    );
+    try {
+      const savedUser = await cognitoidentityserviceprovider.adminCreateUser(params).promise();
+      newUsers.push(savedUser);
+    } catch (error) {
+      console.log('NEW USER EMAIL NOTIFCATION ERROR: - ', error.message);
+    }
   }
 
-  return Promise.all(batchPromises);
+  return newUsers;
 }
 
 async function sendNewUserEmail(newUsers) {
