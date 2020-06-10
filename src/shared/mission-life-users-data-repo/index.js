@@ -21,7 +21,7 @@ export default class MissionLifeUsersDataRepo {
       },
       ExpressionAttributeValues: {
         ':e': `${supporterSponsorship.supporterEmail}`,
-        ':s': `${supporterSponsorship.sponsorshipId}`
+        ':s': supporterSponsorship.sponsorshipId
       },
       Select: 'COUNT'
     };
