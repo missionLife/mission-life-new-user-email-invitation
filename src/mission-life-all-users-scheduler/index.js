@@ -5,24 +5,24 @@ import ReachService from './shared/reach-service';
 import SQS from './shared/sqs';
 
 const betaUserEmails = {
-  'pcarrollnh@gmail.com': true,
-  'angel.galvis@missionlifechange.org': true,
+  // 'pcarrollnh@gmail.com': true,
+  // 'angel.galvis@missionlifechange.org': true,
   'ryanjgetchell@gmail.com': true,
-  'hallej23@gmail.com': true,
-  'hamiltons621@gmail.com': true,
-  'evan_jill@yahoo.com': true,
-  'm_mercer@hotmail.com': true,
-  '15gile@gmail.com': true,
-  'jenn_oneill1@comcast.net': true,
-  'chris@mattplumlee.org': true,
-  'cristianrios222@hotmail.com': true,
-  'hnvrios@gmail.com': true,
-  'lisa.applewood@gmail.com': true,
-  'greg@sherwinwebsolutions.com': true,
-  'asperry1982@comcast.net': true,
-  'soliveira.eliaphoto@gmail.com': true,
-  'swalsh00@comcast.net': true,
-  'carolinejwilkins@gmail.com': true,
+  // 'hallej23@gmail.com': true,
+  // 'hamiltons621@gmail.com': true,
+  // 'evan_jill@yahoo.com': true,
+  // 'm_mercer@hotmail.com': true,
+  // '15gile@gmail.com': true,
+  // 'jenn_oneill1@comcast.net': true,
+  // 'chris@mattplumlee.org': true,
+  // 'cristianrios222@hotmail.com': true,
+  // 'hnvrios@gmail.com': true,
+  // 'lisa.applewood@gmail.com': true,
+  // 'greg@sherwinwebsolutions.com': true,
+  // 'asperry1982@comcast.net': true,
+  // 'soliveira.eliaphoto@gmail.com': true,
+  // 'swalsh00@comcast.net': true,
+  // 'carolinejwilkins@gmail.com': true,
 };
 
 AWS.config.setPromisesDependency(Promise);
@@ -60,13 +60,13 @@ async function getUsers(event, context) {
     }
   }
 
-  // const missionLifeAllUsersPublisher = new MissionLifeAllUsersPublisher({
-  //   sqs: missionLifeAllUsersQueue,
-  //   batchSize: 10
-  // })
+  const missionLifeAllUsersPublisher = new MissionLifeAllUsersPublisher({
+    sqs: missionLifeAllUsersQueue,
+    batchSize: 10
+  })
 
   console.log('THE FILTERED SUPPORTER SPONSORSHIPS: ', supporterSponsorships);
-  // return missionLifeAllUsersPublisher.publishSupporterSponsorships(supporterSponsorships);
+  return missionLifeAllUsersPublisher.publishSupporterSponsorships(supporterSponsorships);
 };
 
 exports.handler = async (event, context) => {
