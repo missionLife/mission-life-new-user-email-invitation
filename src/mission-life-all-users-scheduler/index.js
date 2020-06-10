@@ -4,6 +4,28 @@ import MissionLifeAllUsersPublisher from './mission-life-all-users-publisher';
 import ReachService from './shared/reach-service';
 import SQS from './shared/sqs';
 
+const betaUserEmails = {
+  // 'lbeachy@tds.net': true,
+  // 'pcarrollnh@gmail.com': true,
+  // 'angel.galvis@missionlifechange.org': true,
+  'ryanjgetchell@gmail.com': true,
+  // 'hallej23@gmail.com': true,
+  // 'hamiltons621@gmail.com': true,
+  // 'evan_jill@yahoo.com': true,
+  // 'm_mercer@hotmail.com': true,
+  // '15gile@gmail.com': true,
+  // 'Jenn_oneill1@comcast.net': true,
+  // 'stephanie.plumlee@comcast.net': true,
+  // 'cristianrios222@hotmail.com': true,
+  // 'hnvrios@gmail.com': true,
+  // 'lisa.applewood@gmail.com': true,
+  // 'greg@sherwinwebsolutions.com': true,
+  // 'asperry1982@comcast.net': true,
+  // 'soliveira.eliaphoto@gmail.com': true,
+  // 'swalsh00@comcast.net': true,
+  // 'carolinejwilkins@gmail.com': true,
+};
+
 AWS.config.setPromisesDependency(Promise);
 AWS.config.update({ region: process.env.AWS_REGION });
 
@@ -25,23 +47,27 @@ async function getUsers(event, context) {
 
     for (let supporterData of supporters) {
       console.log('####### THE SUPPORTER DATA WITH SPONSORSHIP ######## - ', supporterData);
-      supporterSponsorships.push(
-        new SupporterSponsorship({
-          supporterEmail: supporterData.supporter.email,
-          supporterName: supporterData.supporter.name,
-          sponsorshipId: sponsorship.id,
-          foundation: supporterData.sponsorship.place.title
-        })
-      );
+      if (betaUserEmails[supporterData.supporter.email]) {
+        console.log('BETA USER! - '. supporterData);
+        supporterSponsorships.push(
+          new SupporterSponsorship({
+            supporterEmail: supporterData.supporter.email,
+            supporterName: supporterData.supporter.name,
+            sponsorshipId: sponsorship.id,
+            foundation: supporterData.sponsorship.place.title
+          })
+        );
+      }
     }
   }
 
-  const missionLifeAllUsersPublisher = new MissionLifeAllUsersPublisher({
-    sqs: missionLifeAllUsersQueue,
-    batchSize: 10
-  })
+  // const missionLifeAllUsersPublisher = new MissionLifeAllUsersPublisher({
+  //   sqs: missionLifeAllUsersQueue,
+  //   batchSize: 10
+  // })
 
-  return missionLifeAllUsersPublisher.publishSupporterSponsorships(supporterSponsorships);
+  console.log('THE FILTERED SUPPORTER SPONSORSHIPS: ', supporterSponsorships);
+  // return missionLifeAllUsersPublisher.publishSupporterSponsorships(supporterSponsorships);
 };
 
 exports.handler = async (event, context) => {
