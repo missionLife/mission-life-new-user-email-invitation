@@ -269,11 +269,12 @@ async function sendNewUserEmail(newUsers) {
                   text-align: center;
                   padding: 40px 30px 40px 30px;
                   margin: auto;
+                  width: 100%;
                 "
               >
                 <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
-                    <td style="width: 100%;">
+                    <td style="width:100%;">
                       <img
                         src="${MissionLifeLogo}"
                         alt="Mission Life"
