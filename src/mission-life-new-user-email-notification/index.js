@@ -105,13 +105,25 @@ async function sendNewUserEmail(newUsers) {
       <html>
         <head></head>
         <body style="margin: 0; padding: 0;">
-          <table align="center" cellpadding="0" cellspacing="0" width="600">
+          <table
+            align="center"
+            cellpadding="0"
+            cellspacing="0"
+            width="600"
+            style="margin: auto;"
+          >
             <tr>
               <td bgcolor="#ffffff" style="padding: 0px 30px 40px 30px;">
                 <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td>
-                      <h1 style="margin-top: 30px;text-align: center; font-family: Arial, sans-serif;">
+                      <h1
+                        style="
+                          margin-top: 30px;
+                          text-align: center;
+                          font-family: Arial, sans-serif;
+                        "
+                      >
                         Mission Life’s Video Messaging Web-App
                       </h1>
                     </td>
@@ -163,9 +175,9 @@ async function sendNewUserEmail(newUsers) {
                       >
                         We are excited to share a new, interactive tool with you that
                         will make it easy for you and your family to connect with your
-                        child to develop a meaningful relationship!  Imagine the stories
-                        you can share with each other and the ripple effect it will
-                        have on all of your lives.
+                        child to develop a meaningful relationship! Imagine the
+                        stories you can share with each other and the ripple effect it
+                        will have on all of your lives.
                       </p>
                     </td>
                   </tr>
@@ -181,7 +193,7 @@ async function sendNewUserEmail(newUsers) {
                         "
                       >
                         Right now our video messaging web APP allows you to send
-                        videos right from your phone to your child.  This is a great
+                        videos right from your phone to your child. This is a great
                         opportunity for you to include your family in this experience
                         and join you in your videos!
                       </p>
@@ -253,11 +265,15 @@ async function sendNewUserEmail(newUsers) {
             <tr>
               <td
                 bgcolor="#62ba45"
-                style="text-align: center; padding: 40px 30px 40px 30px;"
+                style="
+                  text-align: center;
+                  padding: 40px 30px 40px 30px;
+                  margin: auto;
+                "
               >
                 <table cellpadding="0" cellspacing="0" width="100%">
                   <tr>
-                    <td>
+                    <td style="width: 100%;">
                       <img
                         src="${MissionLifeLogo}"
                         alt="Mission Life"
@@ -282,16 +298,17 @@ async function sendNewUserEmail(newUsers) {
                           color: #e34f26;
                           font-size: 24px;
                           text-align: center;
+                          margin: auto;
                         "
                       >
                         Contact Us
                       </p>
-                      <p style="text-align: center;">
+                      <p style="text-align: center; margin: 25px auto;">
                         <span style="text-decoration: none; display: inline-block;">
                           (603) 233-3444
                         </span>
                       </p>
-                      <p style="text-align: center;">
+                      <p style="text-align: center; margin: 25px auto;">
                         <span style="text-decoration: none; display: inline-block;">
                           admin@missionlifechange.org
                         </span>
@@ -350,7 +367,7 @@ async function sendNewUserEmail(newUsers) {
                           width="36px"
                         />
                       </a>
-                      <p style="text-align: center;">
+                      <p style="text-align: center; margin: auto;">
                         Mission Life, P.0. Box 1771, Manchester, NH 03105
                       </p>
                     </td>

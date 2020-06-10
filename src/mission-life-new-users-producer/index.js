@@ -38,7 +38,7 @@ async function processMessageBatch(messages) {
       foundation: supporterSponsorship.foundation
     });
   }
-  console.log('got here!')
+  
   return publishNewUsers(batchPromises);
 }
 
